@@ -40,7 +40,7 @@ class GeekConfigMod(loader.Module):
 
     strings = {
         "name": "LINUXILConfig",
-        "configure": "⚙ <b>Здесь вы можете настроить свои модули' configs</b>",
+        "configure": "⚙ <b>Здесь вы можете настроить свои модули' модули</b>",
         "configuring_mod": "⚙ <b>Выберите вариант конфигурации для мода</b> <code>{}</code>",
         "configuring_option": "⚙ <b>Вариант настройки  </b><code>{}</code><b> для мода </b><code>{}</code>\n<i>ℹ️ {}</i>\n\n<b>Default: </b><code>{}</code>\n\n<b>Current: </b><code>{}</code>",
         "option_saved": "⚙ <b>Вариант настройки </b><code>{}</code><b> для мода </b><code>{}</code><b> сохранен!</b>\n<b>Current: </b><code>{}</code>",
