@@ -59,19 +59,19 @@ errorout() {
 	cat ftg-install.log
 }
 
+
 # Banner generated with following command:
 # pyfiglet -f smslant -w 50 friendly telegram | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/`/\\`/g' | sed 's/^/printf "%s\\n" "/m;s/$/"/m'
-# Ugly, I know.
-
-banner() {
-	clear
-	clear
-	printf "\n\e[7;30;41m BEST    \e[0m"
-	printf "\n\e[7;30;41m USERBOT \e[0m"
-	printf "\n\e[7;30;41m LINUXIL \e[0m"
-	
-
-}
+# Ugly, I know. banner() { 	
+clear 	
+clear 	
+printf "\n\e[1;35;47m \e[0m" 
+printf "\n\e[1;35;47m █ █ █▆█ ███ ██▅ \e[0m" 
+printf "\n\e[1;35;47m █▅█ █ █ █▆█ █▅█ \e[0m" 
+printf "\n\e[1;35;47m \e[0m" 
+printf "\n\n\e[3;34;40m LINUXIL - Новый современный юзер бот\e[0m\n\n"
+   
+  }
 
 ##############################################################################
 
@@ -131,7 +131,7 @@ fi
 
 ##############################################################################
 
-echo "Installing..." >ftg-install.log
+echo "Установка..." >ftg-install.log
 
 if echo "$OSTYPE" | grep -qE '^linux-gnu.*' && [ -f '/etc/debian_version' ]; then
 	PKGMGR="apt install -y"
