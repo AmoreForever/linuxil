@@ -1,9 +1,26 @@
 #!/bin/bash
-# mod by LINMOD in ru language
+
+#    Friendly Telegram (telegram userbot)
+#    Copyright (C) 2018-2022 The Authors
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#    Modded by GeekTG Team
 
 if [ ! -n "$BASH" ]; then
 	echo "Non-bash shell detected, fixing..."
-	bash -c '. <('"$(command -v curl >/dev/null && echo 'curl -Ls' || echo 'wget -qO-')"' https://raw.githubusercontent.com/AmoreForever/linux/master/install.sh) '"$*"
+	bash -c '. <('"$(command -v curl >/dev/null && echo 'curl -Ls' || echo 'wget -qO-')"' https://github.com/GeekTG/Friendly-Telegram/raw/master/install.sh) '"$*"
 	exit $?
 fi
 
@@ -49,19 +66,22 @@ errorout() {
 banner() {
 	clear
 	clear
-    printf "\n\e[1;35;47m    \e[0m"
-printf "\n\e[1;35;47m LINUXIL   \e[0m"
-printf "\n\e[1;35;47m LINUXIL   \e[0m"
-printf "\n\e[1;35;47m            \e[0m"
-printf "\n\n\e[3;34;40m LINUXIL - Fast and new user bot\e[32m\n\n"
-	
+	printf "\n\e[7;30;41m                    )  \e[0m"
+	printf "\n\e[7;30;41m (               ( /(  \e[0m"
+	printf "\n\e[7;30;41m )\\ )   (   (    )\\()) \e[0m"
+	printf "\n\e[7;30;41m(()/(   )\\  )\\ |((_)\\  \e[0m"
+	printf "\n\e[7;30;41m /((\e[7;30;42m_\e[7;30;41m)\e[7;30;42m_\e[7;30;41m((\e[7;30;42m_\e[7;30;41m)((\e[7;30;42m_\e[7;30;41m)|\e[7;30;42m_\e[7;30;41m((\e[7;30;42m_\e[7;30;41m) \e[0m"
+	printf "\n\e[7;30;41m(_)\e[0m\e[7;30;42m/ __| __| __| |/ /  \e[0m"
+	printf "\n\e[7;30;42m  | (_ | _|| _|  ' <   \e[0m"
+	printf "\n\e[7;30;42m   \\___|___|___|_|\\_\\ \e[0m\n\n"
+
 }
 
 ##############################################################################
 
 banner
-printf '%s\n' "- Загрузка LINUXIL бота подождите 5-10 минут"
-printf '%s' "- Загрузка...  "
+printf '%s\n' "The process takes around 3-7 minutes"
+printf '%s' "Installing now...  "
 
 ##############################################################################
 
@@ -91,8 +111,8 @@ if [ ! x"" = x"$DYNO" ] && ! command -v python >/dev/null; then
 	export PATH="/app/.heroku/python/bin:$PATH" # Prefer the bootstrapped python, incl. pip, over the system one.
 fi
 
-if [ -d "LINUXIL/friendly-telegram" ]; then
-	cd LINMOD || {
+if [ -d "Friendly-Telegram/friendly-telegram" ]; then
+	cd linux || {
 		endspin "Error: Install git package and re-run installer"
 		exit 6
 	}
@@ -192,9 +212,9 @@ if [ ! x"$SUDO_USER" = x"" ]; then
 fi
 
 # shellcheck disable=SC2086
-${SUDO_CMD}rm -rf LINMOD
+${SUDO_CMD}rm -rf Friendly-Telegram
 # shellcheck disable=SC2086
-runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linux|| {
+runout ${SUDO_CMD}git clone https://github.com/GeekTG/Friendly-Telegram || {
 	errorout "Clone failed."
 	exit 3
 }
@@ -209,7 +229,7 @@ runin ${SUDO_CMD}"python$PYVER" -m pip install -r requirements.txt --upgrade --u
 	errorin "Requirements failed!"
 	exit 4
 }
-endspin "- Готово! Настроено."
+endspin "Installation successful. Launching setup interface..."
 rm -f ../ftg-install.log
 touch .setup_complete
 # shellcheck disable=SC2086,SC2015
