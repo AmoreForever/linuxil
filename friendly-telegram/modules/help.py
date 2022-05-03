@@ -36,22 +36,22 @@ class HelpMod(loader.Module):
         "set_cat": "ℹ️ <b>{} placed in category {}</b>",
         "no_mod": "🚫 <b>Specify module to hide</b>",
         "hidden_shown": "👓 <b>{} modules hidden, {} module shown:</b>\n{}\n{}",
-        "ihandler": "\n🎹 <code>{}</code> 👉🏻 ",
+        "ihandler": "\n🍥 <code>{}</code> 👉🏻 ",
         "undoc_ihandler": "🦥 No docs",
-        "joined": "👩‍💼 <b>Joined the</b> <a href='https://t.me/GeekTGChat'>support chat</a>",
-        "join": "👩‍💼 <b>Join the</b> <a href='https://t.me/GeekTGChat'>support chat</a>",
+        "joined": "👩‍💼 <b>Joined the</b> <a href='https://t.me/linuxilchat>support chat</a>",
+        "join": "👩‍💼 <b>Join the</b> <a href='https://t.me/linuxilchat>support chat</a>",
     }
 
     def __init__(self):
         self.config = loader.ModuleConfig(
             "core_emoji",
-            "👾",
+            "⦕👾⦖",
             lambda: "Core module bullet",
             "geek_emoji",
-            "👾",
+            "⦕👾⦖",
             lambda: "Geek-only module bullet",
             "plain_emoji",
-            "👾",
+            "⦕👾⦖",
             lambda: "Plain module bullet"
         )
 
