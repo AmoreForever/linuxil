@@ -43,11 +43,11 @@ class UpdaterMod(loader.Module):
         "name": "Updater",
         "source": "ℹ️ <b>Read the source code from</b> <a href='{}'>here</a>",
         "restarting_caption": "🔄 <b>Restarting...</b>",
-        "downloading": "🔄 <b>Downloading updates...</b>",
-        "downloaded": "✅ <b>Downloaded successfully.\nPlease type</b> \n<code>.restart</code> <b>to restart the bot.</b>",
+        "downloading": "🔄 <b>Обновление...</b>",
+        "downloaded": "✅ <b>Успешно обновлено.\nПожалуйста введите/b> \n<code>.restart</code> <b>что бы применить обновление.</b>",
         "already_updated": "✅ <b>Already up to date!</b>",
         "installing": "🔁 <b>Installing updates...</b>",
-        "success": "✅ <b>Restart successful!</b>",
+        "success": "✅ <b>Успешно перезагрузился!</b>",
         "heroku_warning": "⚠️ <b>Heroku API key has not been set. </b>Update was successful but updates will reset every time the bot restarts.",
         "origin_cfg_doc": "Git origin URL, for where to update from",
     }
@@ -142,45 +142,6 @@ class UpdaterMod(loader.Module):
         except subprocess.CalledProcessError:
             logger.exception("Req install failed")
 
-    @loader.owner
-    async def updatecmd(self, message: Message, hard: bool = False) -> None:
-        """Downloads userbot updates"""
-        # We don't really care about asyncio at this point, as we are shutting down
-        if hard:
-            os.system(f"cd {utils.get_base_dir()} && cd .. && git reset --hard HEAD")  # skipcq: BAN-B605
-
-        try:
-            try:
-                msgs = await utils.answer(message, self.strings("downloading", message))
-            except telethon.errors.rpcerrorlist.MessageNotModifiedError:
-                pass
-
-            req_update = await self.download_common()
-
-            try:
-                message = (
-                    await utils.answer(msgs, self.strings("installing", message))
-                )[0]
-            except telethon.errors.rpcerrorlist.MessageNotModifiedError:
-                pass
-
-            if heroku_key := os.environ.get("heroku_api_token"):
-                from .. import heroku
-
-                await self.prerestart_common(message)
-                heroku.publish(self.allclients, heroku_key)
-                # If we pushed, this won't return. If the push failed, we will get thrown at.
-                # So this only happens when remote is already up to date (remote is heroku, where we are running)
-                self._db.set(__name__, "selfupdatechat", None)
-                self._db.set(__name__, "selfupdatemsg", None)
-
-                await utils.answer(message, self.strings("already_updated", message))
-            else:
-                if req_update:
-                    self.req_common()
-                await self.restart_common(message)
-        except GitCommandError:
-            await self.updatecmd(message, True)
 
     @loader.unrestricted
     async def sourcecmd(self, message: Message) -> None:
