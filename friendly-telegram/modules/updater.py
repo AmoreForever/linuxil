@@ -91,7 +91,7 @@ class UpdaterMod(loader.Module):
         await message.client.disconnect()
 
     @loader.owner
-    async def downloadcmd(self, message: Message) -> None:
+    async def updcmd(self, message: Message) -> None:
         """Downloads userbot updates"""
         message = await utils.answer(message, self.strings("downloading", message))
         await self.download_common()
