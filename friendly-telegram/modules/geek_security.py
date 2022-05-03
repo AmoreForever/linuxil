@@ -45,25 +45,25 @@ class GeekSecurityMod(loader.Module):
     """Control security settings (geek3.0.8alpha+)"""
 
     strings = {
-        "name": "GeekSecurity",
-        "no_command": "🚫 <b>Command </b><code>{}</code><b> not found!</b>",
-        "permissions": "🔐 <b>Here you can configure permissions for </b><code>{}{}</code>",
-        "close_menu": "🙈 Close this menu",
-        "global": "🔐 <b>Here you can configure global bounding mask. If the permission is excluded here, it is excluded everywhere!</b>",
-        "owner": "🤴 Owner",
+        "name": "LINUXILSecurity",
+        "no_command": "🤔 <b>Команда </b><code>{}</code><b> не найдена!</b>",
+        "permissions": "🔐 <b>Здесь вы можете настроить разрешения для  </b><code>{}{}</code>",
+        "close_menu": "🙈 Закрыть это меню",
+        "global": "🔐 <b>Здесь вы можете настроить глобальную ограничивающую маску. Если разрешение исключено здесь, оно исключено везде !</b>",
+        "owner": "🤴 Владелец",
         "sudo": "🤵 Sudo",
-        "support": "💁‍♂️ Support",
-        "group_owner": "🧛‍♂️ Group owner",
-        "group_admin_add_admins": "👨‍💻 Admin (add members)",
-        "group_admin_change_info": "👨‍💻 Admin (change info)",
-        "group_admin_ban_users": "👨‍💻 Admin (ban)",
-        "group_admin_delete_messages": "👨‍💻 Admin (delete msgs)",
-        "group_admin_pin_messages": "👨‍💻 Admin (pin)",
-        "group_admin_invite_users": "👨‍💻 Admin (invite)",
-        "group_admin": "👨‍💻 Admin (any)",
-        "group_member": "👥 In group",
+        "support": "💁‍♂️ Поддержка",
+        "group_owner": "🧛‍♂️ Создать группы",
+        "group_admin_add_admins": "👨‍💻 Админ (add members)",
+        "group_admin_change_info": "👨‍💻 Админ (change info)",
+        "group_admin_ban_users": "👨‍💻 Адми (ban)",
+        "group_admin_delete_messages": "👨‍💻 Админ (delete msgs)",
+        "group_admin_pin_messages": "👨‍💻 Админ (pin)",
+        "group_admin_invite_users": "👨‍💻 Админ (invite)",
+        "group_admin": "👨‍💻 Админ (any)",
+        "group_member": "👥 В группе",
         "pm": "🤙 In PM",
-        "owner_list": "🤴 <b>Users in group </b><code>owner</code><b>:</b>\n\n{}",
+        "owner_list": "🤴 <b>Пользователи в группе</b><code>owner</code><b>:</b>\n\n{}",
         "sudo_list": "🤵‍♀️ <b>Users in group </b><code>sudo</code><b>:</b>\n\n{}",
         "support_list": "🙋‍♂️ <b>Users in group </b><code>support</code><b>:</b>\n\n{}",
         "no_owner": "🤴 <b>There is no users in group </b><code>owner</code>",
@@ -79,14 +79,14 @@ class GeekSecurityMod(loader.Module):
         "not_a_user": "🚫 <b>Specified entity is not a user</b>",
         "li": '⦿ <b><a href="tg://user?id={}">{}</a></b>',
         "warning": (
-            '⚠️ <b>Please, confirm, that you want to add <a href="tg://user?id={}">{}</a> '
-            'to group </b><code>{}</code><b>!\nThis action may reveal personal info and grant '
+            '⚠️ <b>Пожалуйста, подтвердите, что хотите добавить  <a href="tg://user?id={}">{}</a> '
+            'to group </b><code>{}</code><b>!\nЭто действие может раскрыть личную информацию и предоставить  '
             'full or partial access to userbot to this user</b>'
         ),
-        "cancel": "🚫 Cancel",
-        "confirm": "👑 Confirm",
-        "self": "🚫 <b>You can't promote/demote yourself!</b>",
-        "restart": "<i>🔄 Restart may be required to commit changes</i>"
+        "cancel": "🚫 Отменить",
+        "confirm": "👑 Подтвердить",
+        "self": "🚫 <b>Вы не можете повышать/понижать себя !</b>",
+        "restart": "<i>🔄 Для фиксации может потребоваться перезагрузка  changes</i>"
     }
 
     def get(self, *args) -> dict:
