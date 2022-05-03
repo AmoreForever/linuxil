@@ -51,9 +51,9 @@ class CoreMod(loader.Module):
         "packs_cleared": "<b>✅ Translations cleared</b>",
         "lang_set": "<b>✅ Language changed</b>",
         "db_cleared": "<b>✅ Database cleared</b>",
-        "geek": "🕶 <b>Congrats! You are Geek!</b>\n\n<b>GeekTG version: {}.{}.{}</b>\n<b>Branch: master</b>",
-        "geek_beta": "🕶 <b>Congrats! You are Geek!</b>\n\n<b>GeekTG version: {}.{}.{}beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
-        "geek_alpha": "🕶 <b>Congrats! You are Geek!</b>\n\n<b>GeekTG version: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
+        "geek": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: 1.0.0</b>\n☁️ Дата последнего обновления 03.05.22</b>",
+        "geek_beta": "🕶 <b>Congrats! You are Geek!</b>\n\n<b>LINUXIL версия: {}.{}.{}beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
+        "geek_alpha": "🕶 <b>Congrats! You are Geek!</b>\n\n<b>LINUXIL версия: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
     }
 
     async def client_ready(self, client, db):
