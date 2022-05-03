@@ -39,11 +39,11 @@ class GeekConfigMod(loader.Module):
     """Interactive configurator for GeekTG"""
 
     strings = {
-        "name": "GeekConfig",
-        "configure": "🎚 <b>Here you can configure your modules' configs</b>",
-        "configuring_mod": "🎚 <b>Choose config option for mod</b> <code>{}</code>",
-        "configuring_option": "🎚 <b>Configuring option </b><code>{}</code><b> of mod </b><code>{}</code>\n<i>ℹ️ {}</i>\n\n<b>Default: </b><code>{}</code>\n\n<b>Current: </b><code>{}</code>",
-        "option_saved": "🎚 <b>Configuring option </b><code>{}</code><b> of mod </b><code>{}</code><b> saved!</b>\n<b>Current: </b><code>{}</code>",
+        "name": "LINUXILConfig",
+        "configure": "⚙ <b>Здесь вы можете настроить свои модули' configs</b>",
+        "configuring_mod": "⚙ <b>Выберите вариант конфигурации для мода</b> <code>{}</code>",
+        "configuring_option": "⚙ <b>Вариант настройки  </b><code>{}</code><b> для мода </b><code>{}</code>\n<i>ℹ️ {}</i>\n\n<b>Default: </b><code>{}</code>\n\n<b>Current: </b><code>{}</code>",
+        "option_saved": "⚙ <b>Вариант настройки </b><code>{}</code><b> для мода </b><code>{}</code><b> сохранен!</b>\n<b>Current: </b><code>{}</code>",
     }
 
     def get(self, *args) -> dict:
@@ -97,11 +97,11 @@ class GeekConfigMod(loader.Module):
             reply_markup=[
                 [
                     {
-                        "text": "👈 Back",
+                        "text": "👈 Назад",
                         "callback": self.inline__configure,
                         "args": (mod,),
                     },
-                    {"text": "🚫 Close", "callback": self.inline__close},
+                    {"text": "⛔ Закрыть", "callback": self.inline__close},
                 ]
             ],
             inline_message_id=inline_message_id,
@@ -123,19 +123,19 @@ class GeekConfigMod(loader.Module):
                     reply_markup=[
                         [
                             {
-                                "text": "✍️ Enter value",
-                                "input": "✍️ Enter new configuration value for this option",
+                                "text": "🖊 Введите значение",
+                                "input": "🖊 Введите новое значение конфигурации для этой опции",
                                 "handler": self.inline__set_config,
                                 "args": (mod, config_opt, call.inline_message_id),
                             }
                         ],
                         [
                             {
-                                "text": "👈 Back",
+                                "text": "👈 Назад",
                                 "callback": self.inline__configure,
                                 "args": (mod,),
                             },
-                            {"text": "🚫 Close", "callback": self.inline__close},
+                            {"text": "⛔ Закрыть", "callback": self.inline__close},
                         ],
                     ],
                 )
@@ -158,8 +158,8 @@ class GeekConfigMod(loader.Module):
             reply_markup=list(chunks(btns, 2))
             + [
                 [
-                    {"text": "👈 Back", "callback": self.inline__global_config},
-                    {"text": "🚫 Close", "callback": self.inline__close},
+                    {"text": "👈 Назад", "callback": self.inline__global_config},
+                    {"text": "⛔ Закрыть", "callback": self.inline__close},
                 ]
             ],
         )
@@ -180,7 +180,7 @@ class GeekConfigMod(loader.Module):
             ]
             kb += [row]
 
-        kb += [[{"text": "🚫 Close", "callback": self.inline__close}]]
+        kb += [[{"text": "⛔ Закрыть", "callback": self.inline__close}]]
 
         if isinstance(call, Message):
             await self.inline.form(
