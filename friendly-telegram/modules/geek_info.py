@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class GeekInfoMod(loader.Module):
     """Show userbot info (geek3.1.0alpha+)"""
 
-    strings = {"name": "GeekInfo"}
+    strings = {"name": "LINUXILInfo"}
 
     def get(self, *args) -> dict:
         return self._db.get(self.strings["name"], *args)
@@ -40,7 +40,7 @@ class GeekInfoMod(loader.Module):
         self.markup = aiogram.types.inline_keyboard.InlineKeyboardMarkup()
         self.markup.row(
             aiogram.types.inline_keyboard.InlineKeyboardButton(
-                "🤵‍♀️ Support chat", url="https://t.me/chat_ftg"
+                "🤵‍♀️ Чат поддержки", url="https://t.me/Linuxilchat"
             )
         )
 
@@ -56,9 +56,9 @@ class GeekInfoMod(loader.Module):
 
             diff = repo.git.log(["HEAD..origin", "--oneline"])
             upd = (
-                "⚠️ Update required </b><code>.update</code><b>"
+                "⚠️ Требуется обновление</b><code>.update</code><b>"
                 if diff
-                else "✅ Up-to-date"
+                else "✅ Обновлен"
             )
         except Exception:
             ver = "unknown"
@@ -89,10 +89,10 @@ class GeekInfoMod(loader.Module):
                     description="ℹ This will not compromise any sensitive data",
                     input_message_content=aiogram.types.input_message_content.InputTextMessageContent(
                         f"""
-<b>🕶 GeekTG Userbot</b>
-<b>🤴 Owner: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
-<b>🔮 Version: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
-<b>🧱 Build: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
+<b>☁️ LINUXIL Userbot</b>
+<b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
+<b>🪁 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
+<b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 
 <b>{platform}</b>
