@@ -123,7 +123,7 @@ class LoaderMod(loader.Module):
     """Loads modules"""
 
     strings = {
-        "name": "Loader",
+        "name": "Загрузчик",
         "repo_config_doc": "Fully qualified URL to a module repo",
         "avail_header": "<b>📥 Available official modules from repo</b>",
         "select_preset": "<b>⚠️ Please select a preset</b>",
@@ -132,9 +132,9 @@ class LoaderMod(loader.Module):
         "no_module": "<b>🚫 Module not available in repo.</b>",
         "no_file": "<b>🚫 File not found</b>",
         "provide_module": "<b>⚠️ Provide a module to load</b>",
-        "bad_unicode": "<b>🚫 Invalid Unicode formatting in module</b>",
-        "load_failed": "<b>🚫 Loading failed. See logs for details</b>",
-        "loaded": "<b>📥 Module </b><code>{}</code>{}<b> loaded.</b>{}",
+        "bad_unicode": "<b>🚫 Недопустимое форматирование Unicode в модуле</b>",
+        "load_failed": "<b>🚫 Загрузка неудалась. Чекни логи и детали</b>",
+        "loaded": "<b>🪁 Модуль </b><code>{}</code>{}<b> Загружен.</b>{}",
         "no_class": "<b>What class needs to be unloaded?</b>",
         "unloaded": "<b>📤 Module unloaded.</b>",
         "not_unloaded": "<b>🚫 Module not unloaded.</b>",
@@ -143,7 +143,7 @@ class LoaderMod(loader.Module):
         "requirements_restart": "<b>🔄 Requirements installed, but a restart is required</b>",
         "all_modules_deleted": "<b>✅ All modules deleted</b>",
         "no_modules": "<b>⚠️ You have no custom modules!</b>",
-        "searching": "<b>🔍 Searching...</b>",
+        "searching": "<b>🔍 Поиск...</b>",
         "file": "<b>📥 File of module {}:<b>",
         "module_link": '📥 <a href="{}">Link</a> for module {}: \n<code>{}</code>',
         "not_found_info": "🚫 Request to find module with name {} failed due to:",
@@ -163,12 +163,12 @@ class LoaderMod(loader.Module):
         "undoc_ihandler": "👁‍🗨 No docs",
         "chandler": "\n🖱 <i>Callback</i>: <code>{}</code> 👉🏻 ",
         "undoc_chandler": "👁‍🗨 No docs",
-        "inline_init_failed": """🚫 <b>This module requires GeekTG inline feature and initialization of InlineManager failed</b>
+        "inline_init_failed": """🚫 <b>This module requires LINUXIL inline feature and initialization of InlineManager failed</b>
 <i>Please, remove one of your old bots from @BotFather and restart userbot to load this module</i>""",
-        "version_incompatible": "🚫 <b>This module requires GeekTG {}+\nPlease, update with </b><code>.update</code>",
+        "version_incompatible": "🚫 <b>This module requires LINUXIL {}+\nPlease, update with </b><code>.update</code>",
         "non_heroku": "♓️ <b>This module is not supported on Heroku</b>",
         "ffmpeg_required": "🚫 <b>This module requires FFMPEG, which is not installed</b>",
-        "developer": "\n🧑‍💻 <b>Developer: </b><code>{}</code>"
+        "developer": "\n🧑‍💻 <b>Создатель: </b><code>{}</code>"
     }
 
     def __init__(self):
