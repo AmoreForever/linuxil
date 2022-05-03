@@ -44,7 +44,7 @@ class UpdaterMod(loader.Module):
         "source": "ℹ️ <b>Read the source code from</b> <a href='{}'>here</a>",
         "restarting_caption": "🔄 <b>Restarting...</b>",
         "downloading": "🔄 <b>Обновление...</b>",
-        "downloaded": "✅ <b>Успешно обновлено.\nПожалуйста введите/b> \n<code>.restart</code> <b>что бы применить обновление.</b>",
+        "downloaded": "✅ <b>Успешно обновлено.\nПожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
         "already_updated": "✅ <b>Already up to date!</b>",
         "installing": "🔁 <b>Installing updates...</b>",
         "success": "✅ <b>Успешно перезагрузился!</b>",
