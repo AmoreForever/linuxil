@@ -194,7 +194,7 @@ fi
 # shellcheck disable=SC2086
 ${SUDO_CMD}rm -rf LINMOD
 # shellcheck disable=SC2086
-runout ${SUDO_CMD}git clone https://github.com/AmoreForever/LINMOD|| {
+runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linux|| {
 	errorout "Clone failed."
 	exit 3
 }
