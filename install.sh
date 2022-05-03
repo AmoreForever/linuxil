@@ -218,7 +218,7 @@ runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linux || {
 	errorout "Clone failed."
 	exit 3
 }
-cd Friendly-Telegram || {
+cd linux || {
 	endspin "Error: Install git package and re-run installer"
 	exit 7
 }
