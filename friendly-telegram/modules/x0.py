@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class x0Mod(loader.Module): 
  """Uploader""" 
  strings = { 
-  "name": "LINUXIL выгружатель" 
+  "name": "LINUXILвыгружатель" 
  } 
  
  async def client_ready(self, client, db): 
