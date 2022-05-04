@@ -92,7 +92,7 @@ if [ ! x"" = x"$DYNO" ] && ! command -v python >/dev/null; then
 fi
 
 if [ -d "LINUXIL/friendly-telegram" ]; then
-	cd LINMOD || {
+	cd linux || {
 		endspin "Error: Install git package and re-run installer"
 		exit 6
 	}
