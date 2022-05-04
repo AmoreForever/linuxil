@@ -51,7 +51,7 @@ class CoreMod(loader.Module):
         "packs_cleared": "<b>✅ Translations cleared</b>",
         "lang_set": "<b>✅ Language changed</b>",
         "db_cleared": "<b>✅ Database cleared</b>",
-        "geek": "☁️ <b>Поздравляю! У вас LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.0</b>\n☁️ Дата последнего обновления 03.05.22</b>",
+        "geek": "☁️ <b>Поздравляю! У вас LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.0</b>\n☁️ Дата последнего обновления 04.05.22</b>",
         "geek_beta": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.2beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
         "geek_alpha": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
     }
