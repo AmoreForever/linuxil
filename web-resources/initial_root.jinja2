@@ -1,10 +1,4 @@
-<!--
-    █ █ ▀ █▄▀ ▄▀█ █▀█ ▀    ▄▀█ ▀█▀ ▄▀█ █▀▄▀█ ▄▀█
-    █▀█ █ █ █ █▀█ █▀▄ █ ▄  █▀█  █  █▀█ █ ▀ █ █▀█
 
-    Copyright 2022 t.me/hikariatama
-    Licensed under the GNU GPLv3
--->
 
 {% extends "base.jinja2" %}
 
@@ -14,15 +8,15 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Open+Sans:wght@300&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=fantasy&display=swap');
     .button {
-      border-radius: 5px;
+      border-radius: 99px;
       padding: 10px 20px;
       border: none;
       color: #eee;
       margin: 5px 0;
       background: transparent;
-      border: 2px solid #aaa;
+      border: 4px solid #3481cf;
       cursor: pointer;
       transition: box-shadow .2s ease;
       user-select: none;
@@ -112,7 +106,7 @@
 
     .title {
       font-size: 50px;
-      font-family: Hubballi;
+      font-family: fantasy;
       text-align: center;
       color: #fff;
       width: 100%;
@@ -131,7 +125,7 @@
       position: relative;
       padding-top: 20px;
       line-height: 1.3;
-      font-family: Hubballi;
+      font-family: fantasy;
     }
 
     .wrapper {
@@ -190,7 +184,7 @@
     }
 
     .bg {
-      background: url(https://github.com/hikariatama/assets/raw/master/bg.png);
+      background: url();
       background-repeat: no-repeat;
       background-size: contain;
       width: 80vw;
@@ -301,28 +295,28 @@
   <div class="bg invert">
     
   </div>
-  <div class="blur">
-    <div class="title">LINUXIL</div>
-    <div class="description">Fast userbot.<br>Best <span style="color:#28a0dc">Telegram</span> userbot.<br><b>Ever</b>.</div>
+  <div class="linuxil">
+    <div class="title">• LINUXIL •</div>
+    <div class="description"><b>Welcome <font color="#3481cf">to the faster </font>userbot!</b></div>
     <div class="center">
-      <div class="button" id="get_started">Get started</div>
+      <div class="button" id="get_started">• Get started •</div>
       <span id="block_api_id">
         <label class="api_id" for="api_id">API ID: </label>
-        <input class="api_id" id="api_id" placeholder="2020" style="width: 4em;">
+        <input class="api_id" id="api_id" placeholder="API_ID " style="width: 4em;">
       </span>
       <span id="block_api_hash">
         <label class="api_hash" for="api_hash">API HASH: </label>
-        <input class="api_hash" id="api_hash" placeholder="w7i07l02i6hymgg03ncq6esmr3t4c9kl" style="width: 24em;">
+        <input class="api_hash" id="api_hash" placeholder="API_HASH" style="width: 24em;">
       </span>
       <span id="block_phone">
-        <label class="phone" for="phone">Phone: </label>
-        <input class="phone" id="phone" placeholder="+79999999999" style="width: 12em;">
+        <label class="phone" for="phone">Phone number: </label>
+        <input class="phone" id="phone" placeholder="+998901234567" style="width: 12em;">
       </span>
       <span id="block_2fa">
-        <label class="_2fa" for="_2fa">2FA Password: </label>
-        <input class="_2fa" id="_2fa" placeholder="passw0rd" style="width: 12em;" type="password">
+        <label class="_2fa" for="_2fa">two-step authentication : </label>
+        <input class="_2fa" id="_2fa" placeholder="password" style="width: 12em;" type="password">
       </span>
-      <div id="continue_btn">Continue</div>
+      <div id="continue_btn">• Continue •</div>
     </div>
   </div>
   <div id="root">
@@ -400,7 +394,7 @@
         if (!response.ok) {
           Swal.fire({
             'icon': 'error', 
-            'title': 'Error occured while saving credentials'
+            'title': 'Error!'
           });
         } else {
           cnt_btn.setAttribute('current-step', 'phone');
@@ -412,7 +406,7 @@
       .catch(function (response) {
         Swal.fire({
           'icon': 'error', 
-          'title': 'Error occured while saving credentials'
+          'title': 'Error!'
         });
       });
     } else if (step == "phone" || step == "2fa") {
@@ -434,11 +428,11 @@
           if (!response.ok) {
             Swal.fire({
               'icon': 'error', 
-              'title': 'Code send failed'
+              'title': 'Error code not sent !'
             });
           } else {
             Swal.fire({
-              title: 'Enter received code',
+              title: 'Enter code ',
               input: 'text',
               inputAttributes: {
                 autocapitalize: 'off'
@@ -467,8 +461,8 @@
                       }
                     } else {
                       Swal.fire({
-                        title: 'Enter Heroku token',
-                        text: 'Leave empty to NOT install to Heroku',
+                        title: 'Enter Heroku Api token :',
+                        text: 'For the user bot to work forever, enter Heroku Api token ',
                         input: 'text',
                         inputAttributes: {
                           autocapitalize: 'off'
@@ -482,12 +476,12 @@
                                   if (!response.ok) {
                                     Swal.fire({
                                       'icon': 'error',
-                                      'text': 'Login confirmation error'
+                                      'text': 'Error heroku Api token!!'
                                     })
                                   } else {
                                     Swal.fire({
                                       'icon': 'success',
-                                      'text': 'Auth successful!',
+                                      'text': 'Succes !',
                                       'timer': 1000
                                     });
                                     setTimeout(() => {
@@ -498,7 +492,7 @@
                                 .catch(function (response) {
                                   Swal.fire({
                                     'icon': 'error',
-                                    'text': 'Login confirmation error'
+                                    'text': 'Hisobga kirishda xatolik!!'
                                   })
                                 });
                         },
@@ -519,7 +513,7 @@
         .catch(function (error) {
           Swal.fire({
             'icon': 'error', 
-            'title': 'Code send failed'
+            'title': 'Kodni yuborishda xatolik!'
           });
         });
       } else {
@@ -549,12 +543,12 @@
                 if (!response.ok) {
                   Swal.fire({
                     'icon': 'error',
-                    'text': 'Login confirmation error'
+                    'text': 'Error Heroku API token!!'
                   })
                 } else {
                   Swal.fire({
                     'icon': 'success',
-                    'text': 'Auth successful!',
+                    'text': 'Success!,
                     'timer': 1000
                   });
                   setTimeout(() => {
@@ -565,13 +559,13 @@
               .catch(function (response) {
                 Swal.fire({
                   'icon': 'error',
-                  'text': 'Login confirmation error'
+                  'text': 'Error Heroku api token!!'
                 })
               });
             {% else %}
               Swal.fire({
-                title: 'Enter Heroku token',
-                text: 'Leave empty to NOT install to Heroku',
+                title: 'Heroku shaxsiy hisob tokenini kiriting:',
+                text: 'Userbot doim ishlashi uchun Heroku tokenni kiriting',
                 input: 'text',
                 inputAttributes: {
                   autocapitalize: 'off'
@@ -585,12 +579,12 @@
                           if (!response.ok) {
                             Swal.fire({
                               'icon': 'error',
-                              'text': 'Login confirmation error'
+                              'text': 'Error Heroku Api token!!'
                             })
                           } else {
                             Swal.fire({
                               'icon': 'success',
-                              'text': 'Auth successful!',
+                              'text': 'Success!',
                               'timer': 1000
                             });
                             setTimeout(() => {
@@ -601,7 +595,7 @@
                         .catch(function (response) {
                           Swal.fire({
                             'icon': 'error',
-                            'text': 'Login confirmation error'
+                            'text': 'Error heroku Api token!!'
                           })
                         });
                 },
