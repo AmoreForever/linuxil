@@ -134,7 +134,7 @@ class LoaderMod(loader.Module):
         "provide_module": "<b>⚠️ Provide a module to load</b>",
         "bad_unicode": "<b>🚫 Недопустимое форматирование Unicode в модуле</b>",
         "load_failed": "<b>🚫 Загрузка неудалась. Чекни логи и детали</b>",
-        "loaded": "<b>🪁 Модуль </b><code>{}</code>{}<b> Загружен.</b>{}",
+        "loaded": "<b>🪁 Модуль </b><code>{}</code>{}<b> загружен.</b>{}",
         "no_class": "<b>What class needs to be unloaded?</b>",
         "unloaded": "<b>📤 Module unloaded.</b>",
         "not_unloaded": "<b>🚫 Module not unloaded.</b>",
