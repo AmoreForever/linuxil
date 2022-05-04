@@ -42,12 +42,12 @@ class UpdaterMod(loader.Module):
     strings = {
         "name": "Updater",
         "source": "ℹ️ <b>Read the source code from</b> <a href='{}'>here</a>",
-        "restarting_caption": "🔄 <b>Restarting...</b>",
-        "downloading": "🔄 <b>Обновление...</b>",
-        "downloaded": "✅ <b>Успешно обновлено.\nПожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
+        "restarting_caption": "⟳ <b>Перезагрузка...</b>",
+        "downloading": "⦿ <b>Обновление...</b>",
+        "downloaded": "〄 <b>Успешно обновлено.\n Пожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
         "already_updated": "✅ <b>Already up to date!</b>",
         "installing": "🔁 <b>Installing updates...</b>",
-        "success": "✅ <b>Успешно перезагрузился! \Что-бы посмотреть версию введите \n<code>.ftgver</code> </b>",
+        "success": "⍟ <b>Успешно перезагрузился! \Что-бы посмотреть версию введите \n<code>.ftgver</code> </b>",
         "heroku_warning": "⚠️ <b>Heroku API key has not been set. </b>Update was successful but updates will reset every time the bot restarts.",
         "origin_cfg_doc": "Git origin URL, for where to update from",
     }
