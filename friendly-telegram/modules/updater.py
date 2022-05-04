@@ -47,7 +47,7 @@ class UpdaterMod(loader.Module):
         "downloaded": "✅ <b>Успешно обновлено.\nПожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
         "already_updated": "✅ <b>Already up to date!</b>",
         "installing": "🔁 <b>Installing updates...</b>",
-        "success": "✅ <b>Успешно перезагрузился!</b>",
+        "success": "✅ <b>Успешно перезагрузился! \Что-бы посмотреть версию введите \n<code>.ftgver</code> </b>",
         "heroku_warning": "⚠️ <b>Heroku API key has not been set. </b>Update was successful but updates will reset every time the bot restarts.",
         "origin_cfg_doc": "Git origin URL, for where to update from",
     }
