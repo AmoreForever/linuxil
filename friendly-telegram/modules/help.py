@@ -28,7 +28,7 @@ class HelpMod(loader.Module):
         "single_mod_header": "📼 <b>{}</b>:",
         "single_cmd": "\n▫️ <code>{}{}</code> 👉🏻 ",
         "undoc_cmd": "🦥 No docs",
-        "all_header": "𐄱 <b>{} Доступные моды , {} hidden:</b>",
+        "all_header": "☁️ <b>Все модули: <code>{}</code>\n🪁 Скрытые: <code>{}</code>\n🛡 Premium модули: <code>LINUXIL</code></b>"
         "mod_tmpl": "\n{} <code>{}</code>",
         "first_cmd_tmpl": ": ( {}",
         "cmd_tmpl": " | {}",
