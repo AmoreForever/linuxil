@@ -30,7 +30,7 @@ class HelpMod(loader.Module):
         "undoc_cmd": "🦥 No docs",
         "all_header": "🜲 <b>{} Доступных модулей | {} Скрытых </b>",
         "mod_tmpl": "\n{} <code>{}</code>",
-        "first_cmd_tmpl": ": ⦉ {}",
+        "first_cmd_tmpl": ": 【 {}",
         "cmd_tmpl": " ꡷ {}",
         "args": "🚫 <b>Args are incorrect</b>",
         "set_cat": "ℹ️ <b>{} placed in category {}</b>",
@@ -271,7 +271,7 @@ class HelpMod(loader.Module):
                     tmp += self.strings("cmd_tmpl").format(f"🎹 {cmd}")
 
             if commands or icommands:
-                tmp += " )"
+                tmp += " 】"
                 if inline:
                     inline_ += [tmp]
                 elif core:
