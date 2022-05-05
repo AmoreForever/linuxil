@@ -1,19 +1,36 @@
+#    Friendly Telegram (telegram userbot)
+#    Copyright (C) 2018-2022 The Authors
 
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#    Modded by GeekTG Team
+
+import asyncio
 import atexit
 import functools
 import logging
 import os
 import subprocess
 import sys
-import asyncio
-from typing import Union
+import uuid
+import telethon
 
 import git
 from git import Repo, GitCommandError
 from telethon.tl.types import Message
 
 from .. import loader, utils
-from ..inline.types import InlineCall
 
 logger = logging.getLogger(__name__)
 
@@ -22,98 +39,63 @@ logger = logging.getLogger(__name__)
 class UpdaterMod(loader.Module):
     """Updates itself"""
 
-
     strings = {
-        "source": "ℹ️ <b>Исходный код можно прочитать</b> <a href='{}'>здесь</a>",
-        "restarting_caption": "🔄 <b>Перезагрузка...</b>",
-        "downloading": "🔄 <b>Скачивание обновлений...</b>",
-        "downloaded": "✅ <b>Скачано успешно.\nНапиши</b> \n<code>.restart</code> <b>для перезагрузки юзербота.</b>",
-        "installing": "🔁 <b>Установка обновлений...</b>",
-        "success": "✅ <b>Перезагрузка успешна!</b>",
-        "origin_cfg_doc": "Ссылка, из которой будут загружаться обновления",
-        "btn_restart": "🔄 Перезагрузиться",
-        "btn_update": "⛵️ Обновиться",
-        "restart_confirm": "🔄 <b>Ты уверен, что хочешь перезагрузиться?</b>",
-        "update_confirm": "⛵️ <b>Ты уверен, что хочешь обновиться?</b>",
-        "cancel": "🚫 Отмена",
-        "_cmd_doc_restart": "Перезагружает юзербот",
-        "_cmd_doc_download": "Скачивает обновления",
-        "_cmd_doc_update": "Обновляет юзербот",
-        "_cmd_doc_source": "Ссылка на исходный код проекта",
-        "_cls_doc": "Обновляет юзербот",
+        "name": "Updater",
+        "source": "ℹ️ <b>Read the source code from</b> <a href='{}'>here</a>",
+        "restarting_caption": "⟳ <b>Перезагрузка...</b>",
+        "downloading": "⦿ <b>Обновление...</b>",
+        "downloaded": "〄 <b>Успешно обновлено.\n Пожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
+        "already_updated": "✅ <b>Already up to date!</b>",
+        "installing": "🔁 <b>Installing updates...</b>",
+        "success": "⍟ <b>Успешно перезагрузился! Что-бы посмотреть версию введите \n<code>.ftgver</code> </b>",
+        "heroku_warning": "⚠️ <b>Heroku API key has not been set. </b>Update was successful but updates will reset every time the bot restarts.",
+        "origin_cfg_doc": "Git origin URL, for where to update from",
     }
 
     def __init__(self):
         self.config = loader.ModuleConfig(
             "GIT_ORIGIN_URL",
             "https://github.com/AmoreForever/linux",
-            lambda: self.strings("origin_cfg_doc"),
+            lambda m: self.strings("origin_cfg_doc", m),
         )
 
     @loader.owner
-    async def restartcmd(self, message: Message):
+    async def restartcmd(self, message: Message) -> None:
         """Restarts the userbot"""
-        try:
-            if (
-                "--force" in (utils.get_args_raw(message) or "")
-                or not self.inline.init_complete
-                or not await self.inline.form(
-                    message=message,
-                    text=self.strings("restart_confirm"),
-                    reply_markup=[
-                        {
-                            "text": self.strings("btn_restart"),
-                            "callback": self.inline_restart,
-                        },
-                        {"text": self.strings("cancel"), "callback": self.inline_close},
-                    ],
-                )
-            ):
-                raise
-        except Exception:
-            message = await utils.answer(message, self.strings("restarting_caption"))
+        msg = (
+            await utils.answer(message, self.strings("restarting_caption", message))
+        )[0]
+        await self.restart_common(msg)
 
-            await self.restart_common(message)
-
-    async def inline_restart(self, call: InlineCall):
-        await call.edit(self.strings("restarting_caption"))
-        await self.restart_common(call)
-
-    async def inline_close(self, call: InlineCall):
-        await call.delete()
-
-    async def prerestart_common(self, call: Union[InlineCall, Message]):
+    async def prerestart_common(self, message: Message) -> None:
         logger.debug(f"Self-update. {sys.executable} -m {utils.get_base_dir()}")
-        if hasattr(call, "inline_message_id"):
-            self._db.set(__name__, "selfupdatemsg", call.inline_message_id)
-        else:
-            self._db.set(
-                __name__, "selfupdatemsg", f"{utils.get_chat_id(call)}:{call.id}"
-            )
 
-    async def restart_common(self, call: Union[InlineCall, Message]):
-        if (
-            hasattr(call, "form")
-            and isinstance(call.form, dict)
-            and "uid" in call.form
-            and call.form["uid"] in self.inline._forms
-            and "message" in self.inline._forms[call.form["uid"]]
-        ):
-            message = self.inline._forms[call.form["uid"]]["message"]
-        else:
-            message = call
+        check = str(uuid.uuid4())
+        await self._db.set(__name__, "selfupdatecheck", check)
+        await asyncio.sleep(3)
+        if self._db.get(__name__, "selfupdatecheck", "") != check:
+            raise ValueError("An update is already in progress!")
+        self._db.set(__name__, "selfupdatechat", utils.get_chat_id(message))
+        await self._db.set(__name__, "selfupdatemsg", message.id)
 
-        await self.prerestart_common(call)
+    async def restart_common(self, message: Message) -> None:
+        await self.prerestart_common(message)
         atexit.register(functools.partial(restart, *sys.argv[1:]))
-        handler = logging.getLogger().handlers[0]
+        [handler] = logging.getLogger().handlers
         handler.setLevel(logging.CRITICAL)
         for client in self.allclients:
             # Terminate main loop of all running clients
             # Won't work if not all clients are ready
             if client is not message.client:
                 await client.disconnect()
-
         await message.client.disconnect()
+
+    @loader.owner
+    async def updcmd(self, message: Message) -> None:
+        """Downloads userbot updates"""
+        message = await utils.answer(message, self.strings("downloading", message))
+        await self.download_common()
+        await utils.answer(message, self.strings("downloaded", message))
 
     async def download_common(self):
         try:
@@ -134,10 +116,12 @@ class UpdaterMod(loader.Module):
             repo.create_head("master", origin.refs.master)
             repo.heads.master.set_tracking_branch(origin.refs.master)
             repo.heads.master.checkout(True)
-            return False
+            return (
+                False  # Heroku never needs to install dependencies because we redeploy
+            )
 
     @staticmethod
-    def req_common():
+    def req_common() -> None:
         # Now we have downloaded new code, install requirements
         logger.debug("Installing new requirements...")
         try:
@@ -158,74 +142,13 @@ class UpdaterMod(loader.Module):
         except subprocess.CalledProcessError:
             logger.exception("Req install failed")
 
-    @loader.owner
-    async def updatecmd(self, message: Message):
-        """Downloads userbot updates"""
-        try:
-            if (
-                "--force" in (utils.get_args_raw(message) or "")
-                or not self.inline.init_complete
-                or not await self.inline.form(
-                    message=message,
-                    text=self.strings("update_confirm"),
-                    reply_markup=[
-                        {
-                            "text": self.strings("btn_update"),
-                            "callback": self.inline_update,
-                        },
-                        {"text": self.strings("cancel"), "callback": self.inline_close},
-                    ],
-                )
-            ):
-                raise
-        except Exception:
-            await self.inline_update(message)
-
-    async def inline_update(
-        self,
-        call: Union[InlineCall, Message],
-        hard: bool = False,
-    ):
-        # We don't really care about asyncio at this point, as we are shutting down
-        if hard:
-            os.system(f"cd {utils.get_base_dir()} && cd .. && git reset --hard HEAD")  # fmt: skip
-
-        try:
-            try:
-                await utils.answer(call, self.strings("downloading"))
-            except Exception:
-                pass
-
-            req_update = await self.download_common()
-
-            try:
-                await utils.answer(call, self.strings("installing"))
-            except Exception:
-                pass
-
-            if req_update:
-                self.req_common()
-
-            try:
-                await utils.answer(call, self.strings("restarting_caption"))
-            except Exception:
-                pass
-
-            await self.restart_common(call)
-        except GitCommandError:
-            if not hard:
-                await self.inline_update(call, True)
-                return
-
-            logger.critical("Got update loop. Update manually via .terminal")
-            return
 
     @loader.unrestricted
-    async def sourcecmd(self, message: Message):
+    async def sourcecmd(self, message: Message) -> None:
         """Links the source code of this project"""
         await utils.answer(
             message,
-            self.strings("source").format(self.config["GIT_ORIGIN_URL"]),
+            self.strings("source", message).format(self.config["GIT_ORIGIN_URL"]),
         )
 
     async def client_ready(self, client, db):
@@ -233,39 +156,42 @@ class UpdaterMod(loader.Module):
         self._me = await client.get_me()
         self._client = client
 
-        if db.get(__name__, "selfupdatemsg") is not None:
+        if (
+            db.get(__name__, "selfupdatechat") is not None
+            and db.get(__name__, "selfupdatemsg") is not None
+        ):
             try:
                 await self.update_complete(client)
             except Exception:
                 logger.exception("Failed to complete update!")
 
+        self._db.set(__name__, "selfupdatechat", None)
         self._db.set(__name__, "selfupdatemsg", None)
 
     async def update_complete(self, client):
         logger.debug("Self update successful! Edit message")
-        msg = self.strings("success")
-        ms = self._db.get(__name__, "selfupdatemsg")
+        heroku_key = os.environ.get("heroku_api_token")
+        herokufail = ("DYNO" in os.environ) and (heroku_key is None)
 
-        if ":" in str(ms):
-            chat_id, message_id = ms.split(":")
-            chat_id, message_id = int(chat_id), int(message_id)
-            await self._client.edit_message(chat_id, message_id, msg)
-            await asyncio.sleep(120)
-            await self._client.delete_messages(chat_id, message_id)
-            return
+        if herokufail:
+            logger.warning("heroku token not set")
+            msg = self.strings("heroku_warning")
+        else:
+            logger.debug("Self update successful! Edit message")
+            msg = self.strings("success")
 
-        await self.inline.bot.edit_message_text(
-            inline_message_id=ms,
-            text=msg,
-            parse_mode="HTML",
+        await client.edit_message(
+            self._db.get(__name__, "selfupdatechat"),
+            self._db.get(__name__, "selfupdatemsg"),
+            msg,
         )
 
 
 def restart(*argv):
-    os.execl(
-        sys.executable,
-        sys.executable,
-        "-m",
-        os.path.relpath(utils.get_base_dir()),
-        *argv,
-    )
+    os.execl(  # skipcq: BAN-B606
+        sys.executable,  # skipcq: BAN-B606
+        sys.executable,  # skipcq: BAN-B606
+        "-m",  # skipcq: BAN-B606
+        os.path.relpath(utils.get_base_dir()),  # skipcq: BAN-B606
+        *argv,  # skipcq: BAN-B606
+    )  # skipcq: BAN-B606
