@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 @loader.tds
 class BanMod(loader.Module):
     """Group administration tasks"""
-    strings = {"name": "Administration",
+    strings = {"name": "LINUXILadmintool",
                "ban_not_supergroup": "<b>I can't ban someone unless they're in a supergroup!</b>",
                "unban_not_supergroup": "<b>I can't unban someone unless they're banned from a supergroup!</b>",
                "kick_not_group": "<b>I can't kick someone unless they're in a group!</b>",
