@@ -265,10 +265,10 @@ class HelpMod(loader.Module):
 
             for cmd in icommands:
                 if first:
-                    tmp += self.strings("first_cmd_tmpl").format(f"🎹 {cmd}")
+                    tmp += self.strings("first_cmd_tmpl").format(f"👾 {cmd}")
                     first = False
                 else:
-                    tmp += self.strings("cmd_tmpl").format(f"🎹 {cmd}")
+                    tmp += self.strings("cmd_tmpl").format(f"👾 {cmd}")
 
             if commands or icommands:
                 tmp += " 】"
@@ -296,13 +296,13 @@ class HelpMod(loader.Module):
         if await self.allmodules.check_security(
             message, security.OWNER | security.SUDO
         ):
-            await self._client(JoinChannelRequest("https://t.me/GeekTGChat"))
+            await self._client(JoinChannelRequest("https://t.me/linuxilchat"))
 
             try:
                 await self.inline.form(
                     self.strings("joined", message),
                     reply_markup=[
-                        [{"text": "👩‍💼 Chat", "url": "https://t.me/GeekTGChat"}]
+                        [{"text": "👩‍💼 Chat", "url": "https://t.me/linuxilchat"}]
                     ],
                     ttl=10,
                     message=message,
@@ -314,7 +314,7 @@ class HelpMod(loader.Module):
                 await self.inline.form(
                     self.strings("join", message),
                     reply_markup=[
-                        [{"text": "👩‍💼 Chat", "url": "https://t.me/GeekTGChat"}]
+                        [{"text": "👩‍💼 Chat", "url": "https://t.me/linuxilchat "}]
                     ],
                     ttl=10,
                     message=message,
