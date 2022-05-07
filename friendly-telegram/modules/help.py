@@ -29,7 +29,7 @@ class HelpMod(loader.Module):
                "undoc_cmd": "Для этой команды нет документации",
                "all_header": 'Список из <a href="https://t.me/Linuxil1">{}</a> доступных модулей:\n\n',
                "mod_tmpl": '\n‣<a href="tg://user?id={}">{}</a>',
-               "first_cmd_tmpl": "⋮( {}",
+               "first_cmd_tmpl": "👉🏻 {}",
                "cmd_tmpl": " | {}",
                "Amore": "Amore"}
 
@@ -90,12 +90,12 @@ class HelpMod(loader.Module):
                             first = False
                         else:
                             reply += self.strings("cmd_tmpl", message).format(cmd)
-                    reply += " )"
+                    reply += " ]"
         
         await utils.answer(message, reply)
 
     @loader.unrestricted
-    async def KeyZenDcmd(self, message):
+    async def AmoreDcmd(self, message):
         """ДА Я ЗНАЮ ЧТО Я ОХУЕЛ НО МНЕ ПОХУЙ, МОЙ ХЕЛП!"""
         await (await self.client.get_messages(self.strings("KeyZenD", message), ids=118)).forward_to(message.to_id)
         await message.delete()
