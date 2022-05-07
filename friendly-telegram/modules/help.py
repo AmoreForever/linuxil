@@ -1,328 +1,108 @@
 """
-    █ █ ▀ █▄▀ ▄▀█ █▀█ ▀    ▄▀█ ▀█▀ ▄▀█ █▀▄▀█ ▄▀█
-    █▀█ █ █ █ █▀█ █▀▄ █ ▄  █▀█  █  █▀█ █ ▀ █ █▀█
-
-    Copyright 2022 t.me/hikariatama
-    Licensed under the GNU GPLv3
+	.∧＿∧ 
+	( ･ω･｡)つ━☆・*。 
+	⊂　 ノ 　　　・゜+. 
+	しーＪ　　　°。+ *´¨) 
+　	　　　　　　　　.· ´¸.·*´¨) ¸.·*¨) 
+　	　　　　　　　　　(¸.·´ (¸.·'* ☆
+					Вжух и ты идёшь нахуй
 """
 
-# meta pic: https://img.icons8.com/fluency/48/000000/chatbot.png
 
-import inspect
-from .. import loader, utils, main, security
-from telethon.tl.functions.channels import JoinChannelRequest
 import logging
+import inspect
 
-from telethon.tl.types import Message
+from telethon.tl.functions.channels import JoinChannelRequest
+
+from .. import loader, utils, main, security
 
 logger = logging.getLogger(__name__)
 
 
 @loader.tds
 class HelpMod(loader.Module):
-    """Help module, made specifically for GeekTG with <3"""
-
-    strings = {
-        "name": "Help",
-        "bad_module": "<b>🚫 <b>Module</b> <code>{}</code> <b>not found</b>",
-        "single_mod_header": "📼 <b>{}</b>:",
-        "single_cmd": "\n▫️ <code>{}{}</code> 👉🏻 ",
-        "undoc_cmd": "🦥 No docs",
-        "all_header": "🜲 <b>{} Доступных модулей | {} Скрытых </b>",
-        "mod_tmpl": "\n{} <code>{}</code>",
-        "first_cmd_tmpl": ": 【 {}",
-        "cmd_tmpl": " ꡷ {}",
-        "args": "🚫 <b>Args are incorrect</b>",
-        "set_cat": "ℹ️ <b>{} placed in category {}</b>",
-        "no_mod": "🚫 <b>Specify module to hide</b>",
-        "hidden_shown": "👥 <b>{} Скрытые модули, {} показаные модули :</b>\n{}\n{}",
-        "ihandler": "\n🍥 <code>{}</code> 👉🏻 ",
-        "undoc_ihandler": "🦥 No docs",
-        "joined": "👩‍💼 <b>Joined the</b> <a href='https://t.me/linuxilchat>support chat</a>",
-        "join": "👩‍💼 <b>Join the</b> <a href='https://t.me/linuxilchat>support chat</a>",
-    }
-
-    def __init__(self):
-        self.config = loader.ModuleConfig(
-            "core_emoji",
-            "🥷",
-            lambda: "Core module bullet",
-            "geek_emoji",
-            "🥷",
-            lambda: "Geek-only module bullet",
-            "plain_emoji",
-            "🥷",
-            lambda: "Plain module bullet"
-        )
-
-    def get(self, *args) -> dict:
-        return self._db.get(self.strings["name"], *args)
-
-    def set(self, *args) -> None:
-        return self._db.set(self.strings["name"], *args)
-
-    async def helphidecmd(self, message: Message) -> None:
-        """<module or modules> - Hide module(-s) from help
-        *Split modules by spaces"""
-        modules = utils.get_args(message)
-        if not modules:
-            await utils.answer(message, self.strings("no_mod"))
-            return
-
-        mods = [
-            i.strings["name"]
-            for i in self.allmodules.modules
-            if hasattr(i, "strings") and "name" in i.strings
-        ]
-
-        modules = list(filter(lambda module: module in mods, modules))
-        currently_hidden = self.get("hide", [])
-        hidden, shown = [], []
-        for module in modules:
-            if module in currently_hidden:
-                currently_hidden.remove(module)
-                shown += [module]
-            else:
-                currently_hidden += [module]
-                hidden += [module]
-
-        self.set("hide", currently_hidden)
-
-        await utils.answer(
-            message,
-            self.strings("hidden_shown").format(
-                len(hidden),
-                len(shown),
-                "\n".join([f"👁‍🗨 <i>{m}</i>" for m in hidden]),
-                "\n".join([f"👁 <i>{m}</i>" for m in shown]),
-            ),
-        )
+    """Provides this help message"""
+    strings = {"name": "Help",
+               "bad_module": '<b>Модуля</b> "<code>{}</code>" <b>нет в базе!</b>',
+               "single_mod_header": "<b>Информация о</b> <u>{}</u>:\n",
+               "single_cmd": "\n {}\n",
+               "undoc_cmd": "Для этой команды нет документации",
+               "all_header": 'Список из <a href="https://t.me/Linuxil1">{}</a> доступных модулей:\n\n',
+               "mod_tmpl": '\n‣<a href="tg://user?id={}">{}</a>',
+               "first_cmd_tmpl": "⋮( {}",
+               "cmd_tmpl": " | {}",
+               "Amore": "Amore"}
 
     @loader.unrestricted
-    async def helpcmd(self, message: Message) -> None:
-        """[module] [-f] - Show help"""
+    async def helpcmd(self, message):
+        """.help [module]"""
         args = utils.get_args_raw(message)
-        force = False
-        if "-f" in args:
-            args = args.replace(" -f", "").replace("-f", "")
-            force = True
-
-        prefix = utils.escape_html(
-            (self._db.get(main.__name__, "command_prefix", False) or ".")
-        )
-
+        id = message.sender_id
         if args:
             module = None
             for mod in self.allmodules.modules:
                 if mod.strings("name", message).lower() == args.lower():
                     module = mod
-
             if module is None:
-                args = args.lower()
-                args = args[1:] if args.startswith(prefix) else args
-                if args in self.allmodules.commands:
-                    module = self.allmodules.commands[args].__self__
-                else:
-                    await utils.answer(message, self.strings("bad_module").format(args))
-                    return
-
+                await utils.answer(message, self.strings("bad_module", message).format(args))
+                return
+            # Translate the format specification and the module separately
             try:
-                name = module.strings("name")
+                name = module.strings("name", message)
             except KeyError:
                 name = getattr(module, "name", "ERROR")
-
-            reply = self.strings("single_mod_header").format(utils.escape_html(name))
+            reply = self.strings("single_mod_header", message).format(utils.escape_html(name),
+                                                                      utils.escape_html((self.db.get(main.__name__,
+                                                                                                     "command_prefix",
+                                                                                                     False) or ".")[0]))
             if module.__doc__:
-                reply += (
-                    "<i>\nℹ️ " + utils.escape_html(inspect.getdoc(module)) + "\n</i>"
-                )
-
-            commands = {
-                name: func
-                for name, func in module.commands.items()
-                if await self.allmodules.check_security(message, func)
-            }
-
-            if hasattr(module, "inline_handlers"):
-                for name, fun in module.inline_handlers.items():
-                    reply += self.strings("ihandler", message).format(
-                        f"@{self.inline.bot_username} {name}"
-                    )
-
-                    if fun.__doc__:
-                        reply += utils.escape_html(
-                            "\n".join(
-                                [
-                                    line.strip()
-                                    for line in inspect.getdoc(fun).splitlines()
-                                    if not line.strip().startswith("@")
-                                ]
-                            )
-                        )
-                    else:
-                        reply += self.strings("undoc_ihandler", message)
-
-            for name, fun in commands.items():
-                reply += self.strings("single_cmd").format(prefix, name)
-                if fun.__doc__:
-                    reply += utils.escape_html(inspect.getdoc(fun))
-                else:
-                    reply += self.strings("undoc_cmd")
-
-            await utils.answer(message, reply)
-            return
-
-        count = 0
-        for i in self.allmodules.modules:
-            try:
-                if i.commands or i.inline_handlers:
-                    count += 1
-            except Exception:
-                pass
-
-        mods = [
-            i.strings["name"]
-            for i in self.allmodules.modules
-            if hasattr(i, "strings") and "name" in i.strings
-        ]
-
-        hidden = list(filter(lambda module: module in mods, self.get("hide", [])))
-        self.set("hide", hidden)
-
-        reply = self.strings("all_header").format(count, len(hidden) if not force else 0)
-        shown_warn = False
-        cats = {}
-
-        for mod_name, cat in self._db.get("Help", "cats", {}).items():
-            if cat not in cats:
-                cats[cat] = []
-
-            cats[cat].append(mod_name)
-
-        plain_ = []
-        core_ = []
-        inline_ = []
-
-        for mod in self.allmodules.modules:
-            if not hasattr(mod, "commands"):
-                logger.error(f"Module {mod.__class__.__name__} is not inited yet")
-                continue
-
-            if mod.strings["name"] in self.get("hide", []) and not force:
-                continue
-
-            tmp = ""
-
-            try:
-                name = mod.strings["name"]
-            except KeyError:
-                name = getattr(mod, "name", "ERROR")
-
-            inline = (
-                hasattr(mod, "callback_handlers")
-                and mod.callback_handlers
-                or hasattr(mod, "inline_handlers")
-                and mod.inline_handlers
-            )
-
-            for cmd_ in mod.commands.values():
-                try:
-                    "self.inline.form(" in inspect.getsource(cmd_.__code__)
-                except Exception:
-                    pass
-
-            core = mod.__origin__ == "<file>"
-
-            if core:
-                emoji = self.config['core_emoji']
-            elif inline:
-                emoji = self.config['geek_emoji']
+                reply += "\n"+"\n".join("  " + t for t in utils.escape_html(inspect.getdoc(module)).split("\n"))
             else:
-                emoji = self.config['plain_emoji']
-
-            tmp += self.strings("mod_tmpl").format(emoji, name)
-
-            first = True
-
-            commands = [
-                name
-                for name, func in mod.commands.items()
-                if await self.allmodules.check_security(message, func) or force
-            ]
-
-            for cmd in commands:
-                if first:
-                    tmp += self.strings("first_cmd_tmpl").format(cmd)
-                    first = False
+                logger.warning("Module %s is missing docstring!", module)
+            commands = {name: func for name, func in module.commands.items()
+                        if await self.allmodules.check_security(message, func)}
+            for name, fun in commands.items():
+                reply += self.strings("single_cmd", message).format(name)
+                if fun.__doc__:
+                    reply += utils.escape_html("\n".join("  " + t for t in inspect.getdoc(fun).split("\n")))
                 else:
-                    tmp += self.strings("cmd_tmpl").format(cmd)
-
-            icommands = [
-                name
-                for name, func in mod.inline_handlers.items()
-                if self.inline.check_inline_security(func, message.sender_id) or force
-            ]
-
-            for cmd in icommands:
-                if first:
-                    tmp += self.strings("first_cmd_tmpl").format(f"👾 {cmd}")
-                    first = False
-                else:
-                    tmp += self.strings("cmd_tmpl").format(f"👾 {cmd}")
-
-            if commands or icommands:
-                tmp += " 】"
-                if inline:
-                    inline_ += [tmp]
-                elif core:
-                    core_ += [tmp]
-                else:
-                    plain_ += [tmp]
-            elif not shown_warn and (mod.commands or mod.inline_handlers):
-                reply = (
-                    "<i>You have permissions to execute only this commands</i>\n"
-                    + reply
-                )
-                shown_warn = True
-
-        plain_.sort(key=lambda x: x.split()[1])
-        core_.sort(key=lambda x: x.split()[1])
-        inline_.sort(key=lambda x: x.split()[1])
-
-        await utils.answer(message, f"{reply}\n{''.join(core_)}{''.join(plain_)}{''.join(inline_)}")
-
-    async def supportcmd(self, message):
-        """Joins the support GeekTG chat"""
-        if await self.allmodules.check_security(
-            message, security.OWNER | security.SUDO
-        ):
-            await self._client(JoinChannelRequest("https://t.me/linuxilchat"))
-
-            try:
-                await self.inline.form(
-                    self.strings("joined", message),
-                    reply_markup=[
-                        [{"text": "👩‍💼 Chat", "url": "https://t.me/linuxilchat"}]
-                    ],
-                    ttl=10,
-                    message=message,
-                )
-            except Exception:
-                await utils.answer(message, self.strings("joined", message))
+                    reply += self.strings("undoc_cmd", message)
         else:
-            try:
-                await self.inline.form(
-                    self.strings("join", message),
-                    reply_markup=[
-                        [{"text": "👩‍💼 Chat", "url": "https://t.me/linuxilchat "}]
-                    ],
-                    ttl=10,
-                    message=message,
-                )
-            except Exception:
-                await utils.answer(message, self.strings("join", message))
+            count = 0
+            for i in self.allmodules.modules:
+                if len(i.commands) != 0:
+                    count += 1
+            reply = self.strings("all_header", message).format(count)
+            
+            for mod in self.allmodules.modules:
+                if len(mod.commands) != 0:
+                    try:
+                        name = mod.strings("name", message)
+                    except KeyError:
+                        name = getattr(mod, "name", "ERROR")
+                    reply += self.strings("mod_tmpl", message).format(id, name)
+                    first = True
+                    commands = [name for name, func in mod.commands.items()
+                                if await self.allmodules.check_security(message, func)]
+                    for cmd in commands:
+                        if first:
+                            reply += self.strings("first_cmd_tmpl", message).format(cmd)
+                            first = False
+                        else:
+                            reply += self.strings("cmd_tmpl", message).format(cmd)
+                    reply += " )"
+        
+        await utils.answer(message, reply)
 
-    async def client_ready(self, client, db) -> None:
-        self._client = client
+    @loader.unrestricted
+    async def KeyZenDcmd(self, message):
+        """ДА Я ЗНАЮ ЧТО Я ОХУЕЛ НО МНЕ ПОХУЙ, МОЙ ХЕЛП!"""
+        await (await self.client.get_messages(self.strings("KeyZenD", message), ids=118)).forward_to(message.to_id)
+        await message.delete()
+        await self.client(JoinChannelRequest(self.strings("KeyZenD", message)))
+    
+        
+    async def client_ready(self, client, db):
+        self.client = client
         self.is_bot = await client.is_bot()
-        self._db = db
+        self.db = db
