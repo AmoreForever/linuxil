@@ -71,7 +71,7 @@ class GeekInfoMod(loader.Module):
             "🕶 Termux"
             if termux
             else (
-                "⛎ Heroku"
+                "⛎ Хэроку"
                 if heroku
                 else (
                     f"✌️ lavHost {os.environ['LAVHOST']}"
@@ -90,9 +90,9 @@ class GeekInfoMod(loader.Module):
                     input_message_content=aiogram.types.input_message_content.InputTextMessageContent(
                         f"""
 <b>☁️ LINUXIL Userbot</b>
-<b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
-<b>🪁 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
-<b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
+<b>🥷 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
+<b>🪁 Версия: </b><i>{".".join(list(map(str, list(main.__1.1.3___))))}</i>
+<b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "1.1.3"}</a>
 <b>{upd}</b>
 
 <b>{platform}</b>
