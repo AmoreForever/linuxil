@@ -35,7 +35,7 @@ class HelpMod(loader.Module):
         "args": "🚫 <b>Args are incorrect</b>",
         "set_cat": "ℹ️ <b>{} placed in category {}</b>",
         "no_mod": "🚫 <b>Specify module to hide</b>",
-        "hidden_shown": "🌬 <b>{} Скрытые модули, {} показаные модули :</b>\n{}\n{}",
+        "hidden_shown": "👥 <b>{} Скрытые модули, {} показаные модули :</b>\n{}\n{}",
         "ihandler": "\n🍥 <code>{}</code> 👉🏻 ",
         "undoc_ihandler": "🦥 No docs",
         "joined": "👩‍💼 <b>Joined the</b> <a href='https://t.me/linuxilchat>support chat</a>",
@@ -45,13 +45,13 @@ class HelpMod(loader.Module):
     def __init__(self):
         self.config = loader.ModuleConfig(
             "core_emoji",
-            "▢",
+            "🥷",
             lambda: "Core module bullet",
             "geek_emoji",
-            "▢",
+            "🥷",
             lambda: "Geek-only module bullet",
             "plain_emoji",
-            "▢",
+            "🥷",
             lambda: "Plain module bullet"
         )
 
