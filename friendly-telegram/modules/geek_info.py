@@ -40,7 +40,7 @@ class GeekInfoMod(loader.Module):
         self.markup = aiogram.types.inline_keyboard.InlineKeyboardMarkup()
         self.markup.row(
             aiogram.types.inline_keyboard.InlineKeyboardButton(
-                "🤵‍♀️ Чат поддержки", url="https://t.me/Linuxilchat"
+                "🧑‍🔧 Чат поддержки", url="https://t.me/Linuxilchat"
             )
         )
 
@@ -71,7 +71,7 @@ class GeekInfoMod(loader.Module):
             "🕶 Termux"
             if termux
             else (
-                "⛎ Хэроку"
+                "♓ Хэроку"
                 if heroku
                 else (
                     f"✌️ lavHost {os.environ['LAVHOST']}"
@@ -86,7 +86,7 @@ class GeekInfoMod(loader.Module):
                 aiogram.types.inline_query_result.InlineQueryResultArticle(
                     id=rand(20),
                     title="Send userbot info",
-                    description="ℹ This will not compromise any sensitive data",
+                    description="ℹ Это не поставит под угрозу конфиденциальные данные",
                     input_message_content=aiogram.types.input_message_content.InputTextMessageContent(
                         f"""
 <b>☁️ LINUXIL Userbot</b>
