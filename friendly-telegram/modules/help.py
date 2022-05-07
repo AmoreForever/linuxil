@@ -17,7 +17,7 @@ class HelpMod(loader.Module):
         "single_mod_header": "<b>🥷 Info about</b> <u>{}</u>:",
         "single_cmd": "\n🪁 <code>{}{}</code> 👉🏻 ",
         "undoc_cmd": "🥷🇵 Нету доков",
-        "all_header": '🥷 <b>{} модулей доступно:</b>',
+        "all_header": '🗽 <b>{} модулей доступно:</b>',
         "mod_tmpl": '\n🥷 <code>{}</code>',
         "first_cmd_tmpl": ": ( {}",
         "cmd_tmpl": " | {}",
