@@ -1,151 +1,99 @@
-
-
-from .. import loader, main, utils
+from .. import loader, main
 import logging
+import aiogram
+import os
 import git
 
 from telethon.utils import get_display_name
-from ..inline.types import InlineQuery
-from telethon.tl.types import Message
+from ..inline import GeekInlineQuery, rand
 
 logger = logging.getLogger(__name__)
 
 
 @loader.tds
-class HikkaInfoMod(loader.Module):
-    """Show userbot info"""
+class GeekInfoMod(loader.Module):
+    """Show userbot info (geek3.1.0alpha+)"""
 
-    strings = {
-        "name": "HikkaInfo",
-        "owner": "Owner",
-        "version": "Version",
-        "build": "Build",
-        "prefix": "Command prefix",
-        "send_info": "Send userbot info",
-        "description": "ℹ This will not compromise any sensitive info",
-        "up-to-date": "✅ Up-to-date",
-        "update_required": "⚠️ Update required </b><code>.update</code><b>",
-        "_cfg_doc_custom_message": "Custom message for info. May contain {me}, {version}, {build}, {prefix}, {platform} keywords",
-        "_cfg_doc_custom_button": "Custom button for info",
-    }
+    strings = {"name": "LINUXILInfo"}
 
-    strings_ru = {
-        "owner": "Владелец",
-        "version": "Версия",
-        "build": "Сборка",
-        "prefix": "Префикс команд",
-        "send_info": "Отправить информацию о юзерботе",
-        "description": "ℹ Это не раскроет никакой личной информации",
-        "_ihandle_doc_info": "Отправить информацию о юзерботе",
-        "up-to-date": "✅ Актуальная версия",
-        "update_required": "⚠️ Требуется обновление </b><code>.update</code><b>",
-        "_cfg_doc_custom_message": "Кастомный текст сообщения в info. Может содержать ключевые слова {me}, {version}, {build}, {prefix}, {platform}",
-        "_cfg_doc_custom_button": "Кастомная кнопка в сообщении в info",
-    }
+    def get(self, *args) -> dict:
+        return self._db.get(self.strings["name"], *args)
 
-    def __init__(self):
-        self.config = loader.ModuleConfig(
-            "custom_message",
-            "no",
-            lambda: self.strings("_cfg_doc_custom_message"),
-            "custom_button",
-            "🌘 Support chat|https://t.me/hikka_talks",
-            lambda: self.strings("_cfg_doc_custom_button"),
-        )
+    def set(self, *args) -> None:
+        return self._db.set(self.strings["name"], *args)
 
-    async def client_ready(self, client, db):
+    async def client_ready(self, client, db) -> None:
         self._db = db
         self._client = client
         self._me = await client.get_me()
+        self.markup = aiogram.types.inline_keyboard.InlineKeyboardMarkup()
+        self.markup.row(
+            aiogram.types.inline_keyboard.InlineKeyboardButton(
+                "🤵‍♀️ Чат поддержки", url="https://t.me/Linuxilchat"
+            )
+        )
 
-    def _render_info(self) -> str:
-        ver = utils.get_git_hash() or "Unknown"
+    async def info_inline_handler(self, query: GeekInlineQuery) -> None:
+        """
+        Send userbot info
+        @allow: all
+        """
 
         try:
             repo = git.Repo()
-            diff = repo.git.log(["HEAD..origin/master", "--oneline"])
+            ver = repo.heads[0].commit.hexsha
+
+            diff = repo.git.log(["HEAD..origin", "--oneline"])
             upd = (
-                self.strings("update_required") if diff else self.strings("up-to-date")
+                "⚠️ Требуется обновление</b><code>.update</code><b>"
+                if diff
+                else "✅ Обновлен"
             )
         except Exception:
+            ver = "unknown"
             upd = ""
 
-        me = f'<b><a href="tg://user?id={self._me.id}">{utils.escape_html(get_display_name(self._me))}</a></b>'
-        version = f'<i>{".".join(list(map(str, list(main.__version__))))}</i>'
-        build = f'<a href="https://github.com/hikariatama/Hikka/commit/{ver}">{ver[:8]}</a>'  # fmt: skip
-        prefix = f"«<code>{utils.escape_html(self.get_prefix())}</code>»"
-        platform = utils.get_named_platform()
+        termux = bool(os.popen('echo $PREFIX | grep -o "com.termux"').read())  # skipcq: BAN-B605, BAN-B607
+        heroku = os.environ.get("DYNO", False)
 
-        return (
-            self.config["custom_message"].format(
-                me=me,
-                version=version,
-                build=build,
-                prefix=prefix,
-                platform=platform,
-            )
-            if self.config["custom_message"] != "no"
+        platform = (
+            "🕶 Termux"
+            if termux
             else (
-                "<b>🌘 Hikka Userbot</b>\n"
-                f'<b>🤴 {self.strings("owner")}: </b>{me}\n\n'
-                f"<b>🔮 {self.strings('version')}: </b>{version}\n"
-                f"<b>🧱 {self.strings('build')}: </b>{build}\n\n"
-                f"<b>📼 {self.strings('prefix')}: </b>{prefix}\n"
-                f"<b>{upd}</b>\n"
-                f"<b>{platform}</b>\n"
+                "⛎ Heroku"
+                if heroku
+                else (
+                    f"✌️ lavHost {os.environ['LAVHOST']}"
+                    if "LAVHOST" in os.environ
+                    else "📻 VDS"
+                )
             )
         )
 
-    @loader.inline_everyone
-    async def info_inline_handler(self, query: InlineQuery) -> dict:
-        """Send userbot info"""
+        await query.answer(
+            [
+                aiogram.types.inline_query_result.InlineQueryResultArticle(
+                    id=rand(20),
+                    title="Send userbot info",
+                    description="ℹ This will not compromise any sensitive data",
+                    input_message_content=aiogram.types.input_message_content.InputTextMessageContent(
+                        f"""
+<b>☁️ LINUXIL Userbot</b>
+<b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
+<b>🪁 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
+<b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
+<b>{upd}</b>
 
-        return {
-            "title": self.strings("send_info"),
-            "description": self.strings("description"),
-            "message": self._render_info(),
-            "thumb": "https://github.com/hikariatama/Hikka/raw/master/assets/hikka_pfp.png",
-            "reply_markup": {
-                "text": self.config["custom_button"].split("|")[0],
-                "url": self.config["custom_button"].split("|")[1],
-            },
-        }
-
-    @loader.unrestricted
-    async def infocmd(self, message: Message):
-        """Send userbot info"""
-        await self.inline.form(
-            message=message,
-            text=self._render_info(),
-            reply_markup={
-                "text": self.config["custom_button"].split("|")[0],
-                "url": self.config["custom_button"].split("|")[1],
-            },
-        )
-
-    @loader.unrestricted
-    async def hikkainfocmd(self, message: Message):
-        """[en/ru - default en] - Send info aka 'What is Hikka?'"""
-        args = utils.get_args_raw(message)
-        args = args if args in {"en", "ru"} else "en"
-
-        await utils.answer(
-            message,
-            (
-                "🌘 <b>Hikka</b>\n\n"
-                "Brand new userbot for Telegram with a lot of features, "
-                "aka InlineGalleries, Forms and others. Userbot - software, running "
-                "on your Telegram account. If you write a command to any chat, it will "
-                "get executed right there. Check out live examples at "
-                '<a href="https://github.com/hikariatama/Hikka">GitHub</a>'
-            )
-            if args == "en"
-            else (
-                "🌘 <b>Hikka</b>\n\n"
-                "Новый юзербот для Telegram с огромным количеством функций, "
-                "из которых: Инлайн Галереи, формы и другое. Юзербот - программа, "
-                "которая запускается на твоем Telegram-аккаунте. Когда ты пишешь "
-                "команду в любом чате, она сразу же выполняется. Обрати внимание "
-                'на живые примеры на <a href="https://github.com/hikariatama/Hikka">GitHub</a>'
-            ),
+<b>{platform}</b>
+""",
+                        "HTML",
+                        disable_web_page_preview=True,
+                    ),
+                    thumb_url="https://github.com/GeekTG/Friendly-Telegram/raw/master/friendly-telegram/bot_avatar.png",
+                    thumb_width=128,
+                    thumb_height=128,
+                    reply_markup=self.markup,
+                )
+            ],
+            cache_time=0,
         )
