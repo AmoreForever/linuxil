@@ -1,10 +1,4 @@
-"""
-    █ █ ▀ █▄▀ ▄▀█ █▀█ ▀    ▄▀█ ▀█▀ ▄▀█ █▀▄▀█ ▄▀█
-    █▀█ █ █ █ █▀█ █▀▄ █ ▄  █▀█  █  █▀█ █ ▀ █ █▀█
 
-    Copyright 2022 t.me/hikariatama
-    Licensed under the GNU GPLv3
-"""
 
 # meta pic: https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-info-hotel-services-flatart-icons-flat-flatarticons.png
 # scope: inline
@@ -94,7 +88,7 @@ class GeekInfoMod(loader.Module):
 <b>🪁 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
 <b>🧱 Версия: </b><a href="https://github.com/hikariatama/Hikka/commit/{ver}">{ver[:8]}</a>'
 <b>{upd}</b>
-
+<b>🧬 Префикс: </b>prefix = f"«<code>{utils.escape_html(self.get_prefix())}</code>»"
 <b>{platform}</b>
 """,
                         "HTML",
