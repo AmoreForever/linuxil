@@ -51,7 +51,7 @@ class CoreMod(loader.Module):
         "packs_cleared": "<b>✅ Translations cleared</b>",
         "lang_set": "<b>✅ Language changed</b>",
         "db_cleared": "<b>✅ Database cleared</b>",
-        "geek": "🥷 <b>Поздравляю! У вас LINUXIL!</b>\n\n<b>🪁 LINUXIL версия: 1.3.0</b>\n☁️ Дата последнего обновления 08.05.22</b>",
+        "geek": "🥷 <b>Поздравляю! У вас LINUXIL!</b>\n\n<b>🪁 LINUXIL версия: 1.4.0</b>\n☁️ Дата последнего обновления 14.05.22</b>",
         "geek_beta": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.2beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
         "geek_alpha": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
     }
@@ -85,7 +85,7 @@ class CoreMod(loader.Module):
         module = self.allmodules.get_classname(module)
         return f"{str(chatid)}.{module}" if module else chatid
 
-    async def ftgvercmd(self, message: Message) -> None:
+    async def linuxilcmd(self, message: Message) -> None:
         """Get GeekTG version"""
         ver = getattr(main, "__version__", False)
 
