@@ -125,11 +125,11 @@ class LoaderMod(loader.Module):
     strings = {
         "name": "Загрузчик",
         "repo_config_doc": "Fully qualified URL to a module repo",
-        "avail_header": "<b>📥 Available official modules from repo</b>",
+        "avail_header": "<b>📥 Доступные официальные модули из репо</b>",
         "select_preset": "<b>⚠️ Please select a preset</b>",
         "no_preset": "<b>🚫 Preset not found</b>",
         "preset_loaded": "<b>✅ Preset loaded</b>",
-        "no_module": "<b>🚫 Module not available in repo.</b>",
+        "no_module": "<b>🚫 Модуль недоступен в репозитории.</b>",
         "no_file": "<b>🚫 File not found</b>",
         "provide_module": "<b>⚠️ Provide a module to load</b>",
         "bad_unicode": "<b>🚫 Недопустимое форматирование Unicode в модуле</b>",
@@ -139,8 +139,8 @@ class LoaderMod(loader.Module):
         "unloaded": "<b>📤 Module unloaded.</b>",
         "not_unloaded": "<b>🚫 Module not unloaded.</b>",
         "requirements_failed": "<b>🚫 Requirements installation failed</b>",
-        "requirements_installing": "<b>🔄 Installing requirements...</b>",
-        "requirements_restart": "<b>🔄 Requirements installed, but a restart is required</b>",
+        "requirements_installing": "<b>🔄 Установка требований ...</b>",
+        "requirements_restart": "<b>🔄 Требования устновлены, но требуется перезагрузка</b>",
         "all_modules_deleted": "<b>✅ All modules deleted</b>",
         "no_modules": "<b>⚠️ You have no custom modules!</b>",
         "searching": "<b>🔍 Поиск...</b>",
@@ -175,7 +175,7 @@ class LoaderMod(loader.Module):
         super().__init__()
         self.config = loader.ModuleConfig(
             "MODULES_REPO",
-            "https://raw.githubusercontent.com/GeekTG/FTG-Modules/main/",
+            "https://github.com/Aleks753/ftg-modules",
             lambda m: self.strings("repo_config_doc", m),
         )
 
