@@ -83,8 +83,8 @@ class GeekInfoMod(loader.Module):
 <b>🧑‍🔧 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
 <b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
-
 <b>🖥 Платформа: {platform}</b>
+
 
 <b>🍃 #stopwar</b>
 """,
