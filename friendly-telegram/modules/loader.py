@@ -14,7 +14,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#    Modded by GeekTG Team
+#    Modded by LinuxilTG Team
 
 import asyncio
 import importlib
@@ -125,24 +125,24 @@ class LoaderMod(loader.Module):
     strings = {
         "name": "Загрузчик",
         "repo_config_doc": "Fully qualified URL to a module repo",
-        "avail_header": "<b>📥 Доступные официальные модули из репо</b>",
+        "avail_header": "<b>📃 Linuxil </b>",
         "select_preset": "<b>⚠️ Please select a preset</b>",
         "no_preset": "<b>🚫 Preset not found</b>",
         "preset_loaded": "<b>✅ Preset loaded</b>",
-        "no_module": "<b>🚫 Модуль недоступен в репозитории.</b>",
+        "no_module": "<b>🚫 Ссылка для модуля недействительна.</b>",
         "no_file": "<b>🚫 File not found</b>",
         "provide_module": "<b>⚠️ Provide a module to load</b>",
-        "bad_unicode": "<b>🚫 Недопустимое форматирование Unicode в модуле</b>",
-        "load_failed": "<b>🚫 Загрузка неудалась. Чекни логи и детали</b>",
-        "loaded": "<b>🪁 Модуль </b><code>{}</code>{}<b> загружен.</b>{}",
+        "bad_unicode": "<b>🚫 Invalid Unicode formatting in module</b>",
+        "load_failed": "<b>🚫 Не удалось загрузить модуль. Чекни логи и детали</b>",
+        "loaded": "<b>📥 Модуль </b><code>{}</code>{}<b> скачан.</b>{}",
         "no_class": "<b>What class needs to be unloaded?</b>",
-        "unloaded": "<b>📤 Module unloaded.</b>",
-        "not_unloaded": "<b>🚫 Module not unloaded.</b>",
-        "requirements_failed": "<b>🚫 Requirements installation failed</b>",
-        "requirements_installing": "<b>🔄 Установка требований ...</b>",
-        "requirements_restart": "<b>🔄 Требования устновлены, но требуется перезагрузка</b>",
-        "all_modules_deleted": "<b>✅ All modules deleted</b>",
-        "no_modules": "<b>⚠️ You have no custom modules!</b>",
+        "unloaded": "<b>📤 Модуль выгружен</b>",
+        "not_unloaded": "<b>🚫 Модуль не выгружен.</b>",
+        "requirements_failed": "<b>🚫 Установка требований не удалась </b>",
+        "requirements_installing": "<b>🔄 Установка требований...</b>",
+        "requirements_restart": "<b>🔄 Требования установлены, но нужна перезагрузка</b>",
+        "all_modules_deleted": "<b>✅ Все модули удалены</b>",
+        "no_modules": "<b>⚠️ У вас нет пользовательских модулей !</b>",
         "searching": "<b>🔍 Поиск...</b>",
         "file": "<b>📥 File of module {}:<b>",
         "module_link": '📥 <a href="{}">Link</a> for module {}: \n<code>{}</code>',
@@ -163,19 +163,19 @@ class LoaderMod(loader.Module):
         "undoc_ihandler": "👁‍🗨 No docs",
         "chandler": "\n🖱 <i>Callback</i>: <code>{}</code> 👉🏻 ",
         "undoc_chandler": "👁‍🗨 No docs",
-        "inline_init_failed": """🚫 <b>This module requires LINUXIL inline feature and initialization of InlineManager failed</b>
+        "inline_init_failed": """🚫 <b>This module requires LinuxilTG inline feature and initialization of InlineManager failed</b>
 <i>Please, remove one of your old bots from @BotFather and restart userbot to load this module</i>""",
-        "version_incompatible": "🚫 <b>This module requires LINUXIL {}+\nPlease, update with </b><code>.update</code>",
+        "version_incompatible": "🚫 <b>This module requires LinuxilTG {}+\nPlease, update with </b><code>.update</code>",
         "non_heroku": "♓️ <b>This module is not supported on Heroku</b>",
         "ffmpeg_required": "🚫 <b>This module requires FFMPEG, which is not installed</b>",
-        "developer": "\n🧑‍💻 <b>Создатель: </b><code>{}</code>"
+        "developer": "\n🧑‍💻 <b>Создатель модуля: </b><code>{}</code>"
     }
 
     def __init__(self):
         super().__init__()
         self.config = loader.ModuleConfig(
             "MODULES_REPO",
-            "https://github.com/Aleks753/ftg-modules",
+            "https://raw.githubusercontent.com/GeekTG/FTG-Modules/main/",
             lambda m: self.strings("repo_config_doc", m),
         )
 
