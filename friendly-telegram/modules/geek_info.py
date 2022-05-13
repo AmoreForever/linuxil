@@ -1,3 +1,14 @@
+"""
+    █ █ ▀ █▄▀ ▄▀█ █▀█ ▀    ▄▀█ ▀█▀ ▄▀█ █▀▄▀█ ▄▀█
+    █▀█ █ █ █ █▀█ █▀▄ █ ▄  █▀█  █  █▀█ █ ▀ █ █▀█
+
+    Copyright 2022 t.me/hikariatama
+    Licensed under the GNU GPLv3
+"""
+
+# meta pic: https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-info-hotel-services-flatart-icons-flat-flatarticons.png
+# scope: inline
+
 from .. import loader, main
 import logging
 import aiogram
@@ -14,8 +25,7 @@ logger = logging.getLogger(__name__)
 class GeekInfoMod(loader.Module):
     """Show userbot info (geek3.1.0alpha+)"""
 
-    strings = {"name": "LINUXILInfo"
-    }
+    strings = {"name": "LINUXILInfo"}
 
     def get(self, *args) -> dict:
         return self._db.get(self.strings["name"], *args)
@@ -80,14 +90,12 @@ class GeekInfoMod(loader.Module):
                     input_message_content=aiogram.types.input_message_content.InputTextMessageContent(
                         f"""
 <b>☁️ LINUXIL Userbot</b>
-<b>🥷 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
-<b>🧑‍🔧 Версия: <b>1.1.4</b>
+<b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
+<b>🪁 Версия: <b>1.1.4
 <b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
-<b>🖥 Платформа: {platform}</b>
 
-
-<b>🍃 #stopwar</b>
+<b>👤Платформа: {platform}</b>
 """,
                         "HTML",
                         disable_web_page_preview=True,
