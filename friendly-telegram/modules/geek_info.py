@@ -83,14 +83,15 @@ class GeekInfoMod(loader.Module):
 <b>🧑‍🔧 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
 <b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
+<b>🚨 Префикс: </b><code>{prefix}</code>
+<b>🖥 Платформа: {platform}</b>
 
-<b>{platform}</b>
 <b>🍃 #stopwar</b>
 """,
                         "HTML",
                         disable_web_page_preview=True,
                     ),
-                    thumb_url="https://github.com/GeekTG/Friendly-Telegram/raw/master/friendly-telegram/bot_avatar.png",
+                    thumb_url="https://siasky.net/HAAs1jbmwNQVFOEavi1sQ4L2JEJfGkFxELWQgDWXuoAVpw",
                     thumb_width=128,
                     thumb_height=128,
                     reply_markup=self.markup,
