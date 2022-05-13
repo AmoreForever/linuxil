@@ -91,7 +91,7 @@ class GeekInfoMod(loader.Module):
                         f"""
 <b>☁️ LINUXIL Userbot</b>
 <b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
-<b>🪁 Версия: <b>1.1.4</b>
+<b>🪁 Версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
 <b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 
