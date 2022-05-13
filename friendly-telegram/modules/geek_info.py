@@ -14,7 +14,19 @@ logger = logging.getLogger(__name__)
 class GeekInfoMod(loader.Module):
     """Show userbot info (geek3.1.0alpha+)"""
 
-    strings = {"name": "LINUXILInfo"}
+    strings = {"name": "LINUXILInfo"
+        "owner": "Владелец",
+        "version": "Версия",
+        "build": "Сборка",
+        "prefix": "Префикс команд",
+        "send_info": "Отправить информацию о юзерботе",
+        "description": "ℹ Это не раскроет никакой личной информации",
+        "_ihandle_doc_info": "Отправить информацию о юзерботе",
+        "up-to-date": "✅ Актуальная версия",
+        "update_required": "⚠️ Требуется обновление </b><code>.update</code><b>",
+        "_cfg_doc_custom_message": "Кастомный текст сообщения в info. Может содержать ключевые слова {me}, {version}, {build}, {prefix}, {platform}",
+        "_cfg_doc_custom_button": "Кастомная кнопка в сообщении в info",
+    }
 
     def get(self, *args) -> dict:
         return self._db.get(self.strings["name"], *args)
@@ -84,7 +96,7 @@ class GeekInfoMod(loader.Module):
 <b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 <b>🖥 Платформа: {platform}</b>
-<b>🛩 Префикс:<code>{utils.escape_html(self.get_prefix())}</code>
+
 
 <b>🍃 #stopwar</b>
 """,
