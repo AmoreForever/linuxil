@@ -84,7 +84,7 @@ class GeekInfoMod(loader.Module):
 <b>🧱 Версия: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 <b>🖥 Платформа: {platform}</b>
-
+<b>🛩 Префикс:<code>{utils.escape_html(self.get_prefix())}</code>
 
 <b>🍃 #stopwar</b>
 """,
