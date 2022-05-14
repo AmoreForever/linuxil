@@ -1,193 +1,321 @@
-
-
+# meta pic: https://img.icons8.com/fluency/48/000000/chatbot.png
 
 import inspect
 from .. import loader, utils, main, security
+from telethon.tl.functions.channels import JoinChannelRequest
 import logging
+
+from telethon.tl.types import Message
 
 logger = logging.getLogger(__name__)
 
 
 @loader.tds
 class HelpMod(loader.Module):
-    """help"""
+    """Help menu """
+
     strings = {
-        "name": "Help",
-        "bad_module": '<b>🥷 I don\'t know what</b> "<code>{}</code>" <b>is!</b>',
-        "single_mod_header": "<b>🥷 Info about</b> <u>{}</u>:",
-        "single_cmd": "\n🪁 <code>{}{}</code> 👉🏻 ",
-        "undoc_cmd": "🥷🇵 Нету доков",
-        "all_header": '🗽 <b>{} модулей доступно:</b>',
-        "mod_tmpl": '\n🥷 <code>{}</code>',
-        "first_cmd_tmpl": ": ( {}",
-        "cmd_tmpl": " | {}",
-        "args": "🥷 <b>Аргументы не корректныt</b>",
-        "set_cat": "🥷 <b>{} -> {}</b>"
+        "name": "Помощь",
+        "bad_module": "<b>⛔ Модуль не найден</b> <code>{}</code>",
+        "single_mod_header": "📃 <b>Название модуля:</b> {}",
+        "single_cmd": "\n🪁 <b>{}{}</b> - ",
+        "undoc_cmd": "⛔ Нет документов",
+        "all_header": "🛡 <b>Все модули: <code>{}</code>\n🛡 Скрытые: <code>{}</code>\n🛡 Premium модули: <code>LIN-0</code></b>",
+        "mod_tmpl": "\n{} <b>{}</b>",
+        "first_cmd_tmpl": ": [ <code>{}</code>",
+        "cmd_tmpl": " | <code>{}</code>",
+        "args": "🚫 <b>Неправильные аргументы</b>",
+        "set_cat": "ℹ️ <b>{} входит в категорию {}</b>",
+        "no_mod": "📖 <b>Напишите название модулю...</b>",
+        "hidden_shown": "<b>☁️ Скрытые: {}\n⛅ Все модули: {}\n\n</b>{}{}",
+        "ihandler": "\n📃 <b>{}</b> - ",
+        "undoc_ihandler": "🤔 Нет документов!!",
+        "joined": "😎 <b> Вы успели подписаться на канал!</b>",
+        "join": "🥱 <b>LINUXILTG присоединяйтесь в группу!\n\nВсе проблемы обсуждаются на оффициальной группе</b>",
     }
 
-    async def helpcatcmd(self, message):
-        """<module>: <category> - Set category for module"""
-        args = utils.get_args_raw(message).split(':')
-        if len(args) != 2:
-            await utils.answer(message, self.strings('args', message))
+    def __init__(self):
+        self.config = loader.ModuleConfig(
+            "core_emoji",
+            "💠",
+            lambda: "Core module bullet",
+            "geek_emoji",
+            "💠",
+            lambda: "Geek-only module bullet",
+            "plain_emoji",
+            "💠",
+            lambda: "Plain module bullet"
+        )
+
+    def get(self, *args) -> dict:
+        return self._db.get(self.strings["name"], *args)
+
+    def set(self, *args) -> None:
+        return self._db.set(self.strings["name"], *args)
+
+    async def berkcmd(self, message: Message) -> None:
+        """спрятать модуль <modul nomi>"""
+        modules = utils.get_args(message)
+        if not modules:
+            await utils.answer(message, self.strings("no_mod"))
             return
 
-        module_args, cat = args[0].strip(), args[1].strip()
-        module = None
-        for mod in self.allmodules.modules:
-            if mod.strings("name", message).lower() == module_args.lower():
-                module = mod
+        mods = [
+            i.strings["name"]
+            for i in self.allmodules.modules
+            if hasattr(i, "strings") and "name" in i.strings
+        ]
 
-        if module is None:
-            await utils.answer(message, self.strings('bad_module', message).format(module_args))
-            return
+        modules = list(filter(lambda module: module in mods, modules))
+        currently_hidden = self.get("hide", [])
+        hidden, shown = [], []
+        for module in modules:
+            if module in currently_hidden:
+                currently_hidden.remove(module)
+                shown += [module]
+            else:
+                currently_hidden += [module]
+                hidden += [module]
 
-        cats = self.db.get('Help', 'cats', {})
-        if cat == "":
-            del cats[module_args]
-            cat = "default"
-        else:
-            cats[module_args] = cat
-        self.db.set('Help', 'cats', cats)
-        await utils.answer(message, self.strings('set_cat', message).format(module_args, cat))
+        self.set("hide", currently_hidden)
+
+        await utils.answer(
+            message,
+            self.strings("hidden_shown").format(
+                len(hidden),
+                len(shown),
+                "\n".join([f"🔇 <b>Спрятан:</b> <i>{m}</i>" for m in hidden]),
+                "\n".join([f"🔈 <b>Открыт:</b> <i>{m}</i>" for m in shown]),
+            ),
+        )
 
     @loader.unrestricted
-    async def helpcmd(self, message):
-        """[module] [-f] [-c <category>] - Show help"""
+    async def helpcmd(self, message: Message) -> None:
+        """все модули [-f]"""
         args = utils.get_args_raw(message)
-        force = False
-        # print(args)
-        if '-f' in args:
-            args = args.replace(' -f', '').replace('-f', '')
+        force = False        
+        if "-f" in args:
+            args = args.replace(" -f", "").replace("-f", "")
             force = True
 
-        category = None
-        if "-c" in args:
-            category = args[args.find('-c ') + 3:]
-            args = args[:args.find('-c ')]
-
-        id = message.sender_id
         prefix = utils.escape_html(
-            (self.db.get(main.__name__, "command_prefix", False) or ".")[0])
+            (self._db.get(main.__name__, "command_prefix", False) or ".")
+        )
+
         if args:
             module = None
             for mod in self.allmodules.modules:
                 if mod.strings("name", message).lower() == args.lower():
                     module = mod
+
             if module is None:
                 args = args.lower()
                 args = args[1:] if args.startswith(prefix) else args
                 if args in self.allmodules.commands:
                     module = self.allmodules.commands[args].__self__
                 else:
-                    await utils.answer(message, self.strings("bad_module", message).format(args))
+                    await utils.answer(message, self.strings("bad_module").format(args))
                     return
-            # Translate the format specification and the module separately
+
             try:
-                name = module.strings("name", message)
+                name = module.strings("name")
             except KeyError:
                 name = getattr(module, "name", "ERROR")
 
-            reply = self.strings("single_mod_header", message).format(
-                utils.escape_html(name))
+            reply = self.strings("single_mod_header").format(utils.escape_html(name))
             if module.__doc__:
-                reply += "<i>\nℹ️ " + \
-                    utils.escape_html(inspect.getdoc(module)) + "\n</i>"
-            commands = {name: func for name, func in module.commands.items() if await self.allmodules.check_security(message, func)}
+                reply += (
+                    "<b>\n👾 Инфо. о модуле:</b> " + utils.escape_html(inspect.getdoc(module)) + "\n"
+                )
+
+            commands = {
+                name: func
+                for name, func in module.commands.items()
+                if await self.allmodules.check_security(message, func)
+            }
+
+            if hasattr(module, "inline_handlers"):
+                for name, fun in module.inline_handlers.items():
+                    reply += self.strings("ihandler", message).format(
+                        f"@{self.inline.bot_username} {name}"
+                    )
+
+                    if fun.__doc__:
+                        reply += utils.escape_html(
+                            "\n".join(
+                                [
+                                    line.strip()
+                                    for line in inspect.getdoc(fun).splitlines()
+                                    if not line.strip().startswith("@")
+                                ]
+                            )
+                        )
+                    else:
+                        reply += self.strings("undoc_ihandler", message)
+
             for name, fun in commands.items():
-                reply += self.strings("single_cmd",
-                                      message).format(prefix, name)
+                reply += self.strings("single_cmd").format(prefix, name)
                 if fun.__doc__:
                     reply += utils.escape_html(inspect.getdoc(fun))
                 else:
-                    reply += self.strings("undoc_cmd", message)
-        else:
-            count = 0
-            for i in self.allmodules.modules:
+                    reply += self.strings("undoc_cmd")
+
+            await utils.answer(message, reply)
+            return
+
+        count = 0
+        for i in self.allmodules.modules:
+            try:
+                if i.commands or i.inline_handlers:
+                    count += 1
+            except Exception:
+                pass
+
+        mods = [
+            i.strings["name"]
+            for i in self.allmodules.modules
+            if hasattr(i, "strings") and "name" in i.strings
+        ]
+
+        hidden = list(filter(lambda module: module in mods, self.get("hide", [])))
+        self.set("hide", hidden)
+
+        reply = self.strings("all_header").format(count, len(hidden) if not force else 0)
+        shown_warn = False
+        cats = {}
+
+        for mod_name, cat in self._db.get("Help", "cats", {}).items():
+            if cat not in cats:
+                cats[cat] = []
+
+            cats[cat].append(mod_name)
+
+        plain_ = []
+        core_ = []
+        inline_ = []
+
+        for mod in self.allmodules.modules:
+            if not hasattr(mod, "commands"):
+                logger.error(f"Module {mod.__class__.__name__} is not inited yet")
+                continue
+
+            if mod.strings["name"] in self.get("hide", []) and not force:
+                continue
+
+            tmp = ""
+
+            try:
+                name = mod.strings["name"]
+            except KeyError:
+                name = getattr(mod, "name", "ERROR")
+
+            inline = (
+                hasattr(mod, "callback_handlers")
+                and mod.callback_handlers
+                or hasattr(mod, "inline_handlers")
+                and mod.inline_handlers
+            )
+
+            for cmd_ in mod.commands.values():
                 try:
-                    if len(i.commands) != 0:
-                        count += 1
-                except:
+                    "self.inline.form(" in inspect.getsource(cmd_.__code__)
+                except Exception:
                     pass
-            reply = self.strings("all_header", message).format(count)
-            shown_warn = False
-            mods_formatted = {}
-            # one_command_mods_cmds = []
-            cats = {}
 
-            for mod_name, cat in self.db.get('Help', 'cats', {}).items():
-                if cat not in cats:
-                    cats[cat] = []
+            core = mod.__origin__ == "<file>"
 
-                cats[cat].append(mod_name)
-
-            logger.info(cats)
-
-            for mod in self.allmodules.modules:
-                if len(mod.commands) != 0:
-                    tmp = ""
-                    try:
-                        name = mod.strings("name", message)
-                    except KeyError:
-                        name = getattr(mod, "name", "ERROR")
-                    tmp += self.strings("mod_tmpl", message).format(name)
-                    first = True
-                    commands = [name for name, func in mod.commands.items() if await self.allmodules.check_security(message, func) or force]
-
-                    # if len(commands) == 1 and (
-                    #     'hide' not in cats or name not in cats['hide']
-                    # ):
-                    #     one_command_mods_cmds += commands
-                    #     continue
-
-                    for cmd in commands:
-                        if first:
-                            tmp += self.strings("first_cmd_tmpl",
-                                                message).format(cmd)
-                            first = False
-                        else:
-                            tmp += self.strings("cmd_tmpl",
-                                                message).format(cmd)
-                    if commands:
-                        tmp += " )"
-                        mods_formatted[name] = tmp
-
-                    elif not shown_warn:
-                        reply = '<i>Показаны только те модули, для которых вам хватает разрешений для выполнения</i>\n' + reply
-                        shown_warn = True
-            if category is None:
-                mods_remaining = mods_formatted.copy()
-                for cat, mods in cats.items():
-                    if cat == 'hide':
-                        continue
-                    tmp = ""
-                    for mod in mods:
-                        if mod in mods_formatted:
-                            tmp += mods_formatted[mod]
-                            del mods_formatted[mod]
-                    if tmp != "":
-                        reply += "\n\n<b><u>🔹 " + cat + "</u></b>" + tmp
-
-                if mods_formatted:
-                    reply += "\n➖➖➖➖➖"
-
-                for _, mod_formatted in mods_formatted.items():
-                    if 'hide' not in cats or _ not in cats['hide']:
-                        reply += mod_formatted
+            if core:
+                emoji = self.config['core_emoji']
+            elif inline:
+                emoji = self.config['geek_emoji']
             else:
-                tmp = ""
-                for mod in cats[category]:
-                    if mod in mods_formatted:
-                        tmp += mods_formatted[mod]
-                        del mods_formatted[mod]
-                if tmp != "":
-                    reply += "\n<b><u>🔹 " + category + "</u></b>" + tmp
+                emoji = self.config['plain_emoji']
 
-            # reply += ("\n\n<b>1-Command Mods:</b>\n" + ' | '.join(one_command_mods_cmds)) if one_command_mods_cmds else ""
+            tmp += self.strings("mod_tmpl").format(emoji, name)
 
-        await utils.answer(message, reply)
+            first = True
 
-    async def client_ready(self, client, db):
-        self.client = client
+            commands = [
+                name
+                for name, func in mod.commands.items()
+                if await self.allmodules.check_security(message, func) or force
+            ]
+
+            for cmd in commands:
+                if first:
+                    tmp += self.strings("first_cmd_tmpl").format(cmd)
+                    first = False
+                else:
+                    tmp += self.strings("cmd_tmpl").format(cmd)
+
+            icommands = [
+                name
+                for name, func in mod.inline_handlers.items()
+                if self.inline.check_inline_security(func, message.sender_id) or force
+            ]
+
+            for cmd in icommands:
+                if first:
+                    tmp += self.strings("first_cmd_tmpl").format(f"🎹 {cmd}")
+                    first = False
+                else:
+                    tmp += self.strings("cmd_tmpl").format(f"🎹 {cmd}")
+
+            if commands or icommands:
+                tmp += " ]"
+                if inline:
+                    inline_ += [tmp]
+                elif core:
+                    core_ += [tmp]
+                else:
+                    plain_ += [tmp]
+            elif not shown_warn and (mod.commands or mod.inline_handlers):
+                reply = (
+                    "<i>You have permissions to execute only this commands</i>\n"
+                    + reply
+                )
+                shown_warn = True
+
+        plain_.sort(key=lambda x: x.split()[1])
+        core_.sort(key=lambda x: x.split()[1])
+        inline_.sort(key=lambda x: x.split()[1])
+
+        await utils.answer(message, f"{reply}\n{''.join(core_)}{''.join(plain_)}{''.join(inline_)}")
+
+    async def yordamcmd(self, message):
+        """yordam soʻrash uchun"""
+        if await self.allmodules.check_security(
+            message, security.OWNER | security.SUDO
+        ):
+            await self._client(JoinChannelRequest("https://t.me/ftgchatuz"))
+
+            try:
+                await self.inline.form(
+                    self.strings("joined", message),
+                    reply_markup=[
+                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/linuxilchat"}],
+                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/umodules"}]
+                    ],
+                    ttl=10,
+                    message=message,
+                )
+            except Exception:
+                await utils.answer(message, self.strings("joined", message))
+        else:
+            try:
+                await self.inline.form(
+                    self.strings("join", message),
+                    reply_markup=[
+                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/linuxilchat"}],
+                        [{"text": "🍭 Присоединиться в группу", "url": "https://t.me/ftgchatuz"}]
+                    ],
+                    ttl=10,
+                    message=message,
+                )
+            except Exception:
+                await utils.answer(message, self.strings("join", message))
+
+    async def client_ready(self, client, db) -> None:
+        self._client = client
         self.is_bot = await client.is_bot()
-        self.db = db
+        self._db = db
