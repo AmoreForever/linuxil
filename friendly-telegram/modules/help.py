@@ -20,7 +20,7 @@ class HelpMod(loader.Module):
         "single_mod_header": "📃 <b>Название модуля:</b> {}",
         "single_cmd": "\n🪁 <b>{}{}</b> - ",
         "undoc_cmd": "⛔ Нет документов",
-        "all_header": "🛡 <b>Все модули: <code>{}</code>\n🛡 Скрытые: <code>{}</code>\n🛡 Premium модули: <code>LIN-0</code></b>",
+        "all_header": "🛡 <b>Все модули: <code>{}</code>\n🛡 Скрытые: <code>{}</code>\n🛡 Premium модули: <code>LINUXIL</code></b>",
         "mod_tmpl": "\n{} <b>{}</b>",
         "first_cmd_tmpl": ": [ <code>{}</code>",
         "cmd_tmpl": " | <code>{}</code>",
