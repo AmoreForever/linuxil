@@ -15,12 +15,12 @@ class HelpMod(loader.Module):
     """Help menu """
 
     strings = {
-        "name": "Помощь",
+        "name": "HELP",
         "bad_module": "<b>⛔ Модуль не найден</b> <code>{}</code>",
         "single_mod_header": "📃 <b>Название модуля:</b> {}",
         "single_cmd": "\n🪁 <b>{}{}</b> - ",
         "undoc_cmd": "⛔ Нет документов",
-        "all_header": "🛡 <b>Все модули: <code>{}</code>\n🛡 Скрытые: <code>{}</code>\n🛡 Premium модули: <code>LINUXIL</code></b>",
+        "all_header": "🌓 <b>Все модули: <code>{}</code>\n🌔 Скрытые: <code>{}</code>\n🌕 Premium модули: <code>LINUXIL</code></b>",
         "mod_tmpl": "\n{} <b>{}</b>",
         "first_cmd_tmpl": ": [ <code>{}</code>",
         "cmd_tmpl": " | <code>{}</code>",
@@ -37,13 +37,13 @@ class HelpMod(loader.Module):
     def __init__(self):
         self.config = loader.ModuleConfig(
             "core_emoji",
-            "💠",
+            "🌱",
             lambda: "Core module bullet",
             "geek_emoji",
-            "💠",
+            "🍂",
             lambda: "Geek-only module bullet",
             "plain_emoji",
-            "💠",
+            "🍃",
             lambda: "Plain module bullet"
         )
 
