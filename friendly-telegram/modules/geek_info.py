@@ -40,7 +40,7 @@ class GeekInfoMod(loader.Module):
         self.markup = aiogram.types.inline_keyboard.InlineKeyboardMarkup()
         self.markup.row(
             aiogram.types.inline_keyboard.InlineKeyboardButton(
-                "🤵‍♀️ Чат поддержки", url="https://t.me/Linuxilchat"
+                "☁️ Чат поддержки", url="https://t.me/Linuxilchat"
             )
         )
 
@@ -71,7 +71,7 @@ class GeekInfoMod(loader.Module):
             "🕶 Termux"
             if termux
             else (
-                "⛎ Heroku"
+                "♓ Heroku"
                 if heroku
                 else (
                     f"✌️ lavHost {os.environ['LAVHOST']}"
@@ -85,18 +85,18 @@ class GeekInfoMod(loader.Module):
             [
                 aiogram.types.inline_query_result.InlineQueryResultArticle(
                     id=rand(20),
-                    title="Send userbot info",
-                    description="ℹ This will not compromise any sensitive data",
+                    title="Отправить информацию о юзерботе",
+                    description="ℹ Это не поставит под угрозу конфиденциальные данные",
                     input_message_content=aiogram.types.input_message_content.InputTextMessageContent(
                         f"""
 <b>☁️ LINUXIL Userbot</b>
 <b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
-<b>🥶 Старая версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
 <b>🛡 Актуальная версия: 1.1.4</b>
+<b>🥶 Не актуальная версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
 <b>🧱 Сборка: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 
-<b>👤Платформа: {platform}</b>
+<b>🔰Платформа: {platform}</b>
 """,
                         "HTML",
                         disable_web_page_preview=True,
