@@ -110,14 +110,3 @@ class GeekInfoMod(loader.Module):
             cache_time=0,
         )
 
-  @loader.unrestricted
-    async def infocmd(self, message: Message):
-        """Send userbot info"""
-        await self.inline.form(
-            message=message,
-            text=self._render_info(),
-            reply_markup={
-                "text": self.config["custom_button"].split("|")[0],
-                "url": self.config["custom_button"].split("|")[1],
-            },
-        )
