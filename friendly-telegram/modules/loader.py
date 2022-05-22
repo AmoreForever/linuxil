@@ -179,41 +179,30 @@ class LoaderMod(loader.Module):
             lambda m: self.strings("repo_config_doc", m),
         )
 
-    @loader.owner
+     @loader.owner
     async def dlmodcmd(self, message: Message) -> None:
         """Downloads and installs a module from the official module repo"""
         if args := utils.get_args(message):
-            args = args[0]
-
-            await self.download_and_install(args, message)
-            self._update_modules_in_db()
+            args = args[0] if urllib.parse.urlparse(args[0]).netloc else args[0].lower()
+            await self.inline.list( message, 
+            if await self.download_and_install(args, message):
+                self._db.set(
+                    __name__,
+                    "loaded_modules",
+                    list(
+                        set(self._db.get(__name__, "loaded_modules", [])).union([args])
+                    ),
+                )
         else:
-            await self.inline.list(
+            text = utils.escape_html("\n".join(await self.get_repo_list("full")))
+            await utils.answer(
                 message,
-                [
-                    self.strings("avail_header")
-                    + f"\n☁️ {repo.strip('/')}\n\n"
-                    + "\n".join(
-                        [
-                            " | ".join(chunk)
-                            for chunk in utils.chunks(
-                                [
-                                    f"<code>{i}</code>"
-                                    for i in sorted(
-                                        [
-                                            utils.escape_html(
-                                                i.split("/")[-1].split(".")[0]
-                                            )
-                                            for i in mods.values()
-                                        ]
-                                    )
-                                ],
-                                5,
-                            )
-                        ]
-                    )
-                    for repo, mods in (await self.get_repo_list("full")).items()
-                ],
+                (
+                    "<b>"
+                    + self.strings("avail_header", message)
+                    + "</b>\n"
+                    + "\n".join(f"<code>{i}</code>" for i in sorted(text.split("\n")))
+                ),
             )
 
     @loader.owner
