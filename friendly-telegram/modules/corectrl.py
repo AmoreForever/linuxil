@@ -97,9 +97,7 @@ class CoreMod(loader.Module):
                     ttl=10,
                     message=message,
                 )
-
-        await utils.answer(message, self.strings("blacklisted", message).format(chatid))
-
+      
     async def unblacklistcmd(self, message: Message) -> None:
         """.unblacklist [id]
         Unblacklist the bot from operating somewhere"""
