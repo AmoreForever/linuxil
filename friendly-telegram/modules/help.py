@@ -37,13 +37,13 @@ class HelpMod(loader.Module):
     def __init__(self):
         self.config = loader.ModuleConfig(
             "core_emoji",
-            "🌱",
+            "🌌",
             lambda: "Core module bullet",
             "geek_emoji",
-            "🍂",
+            "🌠",
             lambda: "Geek-only module bullet",
             "plain_emoji",
-            "🍃",
+            "🌃",
             lambda: "Plain module bullet"
         )
 
