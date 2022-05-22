@@ -63,7 +63,7 @@ class CloudBackend:
     async def _find_asset_channel(self):
         async for dialog in self._client.iter_dialogs(None, ignore_migrated=True):
             if (
-                dialog.name == f"friendly-{self._me.user_id}-assets"
+                dialog.name == f"linuxil-{self._me.user_id}-assets"
                 and dialog.is_channel
             ):
                 members = await self._client.get_participants(dialog, limit=2)
@@ -183,7 +183,7 @@ class CloudBackend:
             sdata = sdata[4096:]
 
         if newmsg:
-            await self._client.send_message(self.db, "Please ignore this chat.")
+            await self._client.send_message(self.db, "🥷Пожалуйста не трогайте группу логов")
 
         return True
 
