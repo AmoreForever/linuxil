@@ -85,18 +85,18 @@ class CoreMod(loader.Module):
         module = self.allmodules.get_classname(module)
         return f"{str(chatid)}.{module}" if module else chatid
 
-    async def ftgvercmd(self, message: Message) -> None:
-        """UMod tekshiruvchi"""
+    async def linuxilcmd(self, message: Message) -> None:
+        """Get GeekTG version"""
+        ver = getattr(main, "__version__", False)
 
-        await self.inline.form(
-                    self.strings("geek", message),
-                    reply_markup=[
-                        [{"text": "🌇 LINUXIL", "url": "https://t.me/linuxil1"}],                        
+        branch = os.popen("git rev-parse --abbrev-ref HEAD").read()  # skipcq: BAN-B605, BAN-B607
 
-                    ],
-                    ttl=10,
-                    message=message,
-                )
+        if "beta" in branch:
+            await utils.answer(message, self.strings("geek_beta").format(*ver))
+        elif "alpha" in branch:
+            await utils.answer(message, self.strings("geek_alpha").format(*ver))
+        else:
+            await utils.answer(message, self.strings("geek").format(*ver))
       
     async def unblacklistcmd(self, message: Message) -> None:
         """.unblacklist [id]
