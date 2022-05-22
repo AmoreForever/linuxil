@@ -85,14 +85,14 @@ class CoreMod(loader.Module):
         module = self.allmodules.get_classname(module)
         return f"{str(chatid)}.{module}" if module else chatid
 
-    async def linuxilcmd(self, message: Message) -> None:
-        """LINUXIL version"""
+    async def ftgvercmd(self, message: Message) -> None:
+        """UMod tekshiruvchi"""
 
         await self.inline.form(
                     self.strings("geek", message),
                     reply_markup=[
-                        [{"text": "⚡ LINUXIL", "url": "https://t.me/linuxil1"}],                        
-                        
+                        [{"text": "🌇 LINUXIL", "url": "https://t.me/linuxil1"}],                        
+
                     ],
                     ttl=10,
                     message=message,
