@@ -92,8 +92,7 @@ class CoreMod(loader.Module):
                     self.strings("geek", message),
                     reply_markup=[
                         [{"text": "⚡ LINUXIL", "url": "https://t.me/linuxil1"}],                        
-                        [{"text": "⚡ ME", "url": "tg://user?id={self._me.id}"}],
-
+                        
                     ],
                     ttl=10,
                     message=message,
