@@ -184,7 +184,7 @@ class LoaderMod(loader.Module):
         """Downloads and installs a module from the official module repo"""
         if args := utils.get_args(message):
             args = args[0] if urllib.parse.urlparse(args[0]).netloc else args[0].lower()
-            await self.inline.list( message, 
+             
             if await self.download_and_install(args, message):
                 self._db.set(
                     __name__,
