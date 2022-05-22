@@ -39,9 +39,9 @@ class HelpMod(loader.Module):
             "core_emoji",
             "🌌",
             lambda: "Core module bullet",
-            "geek_emoji",
+            "linuxil_emoji",
             "🌠",
-            lambda: "Geek-only module bullet",
+            lambda: "Linuxil-only module bullet",
             "plain_emoji",
             "🌃",
             lambda: "Plain module bullet"
@@ -282,7 +282,7 @@ class HelpMod(loader.Module):
 
         await utils.answer(message, f"{reply}\n{''.join(core_)}{''.join(plain_)}{''.join(inline_)}")
 
-    async def yordamcmd(self, message):
+    async def supportcmd(self, message):
         """yordam soʻrash uchun"""
         if await self.allmodules.check_security(
             message, security.OWNER | security.SUDO
