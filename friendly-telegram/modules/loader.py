@@ -179,7 +179,7 @@ class LoaderMod(loader.Module):
             lambda m: self.strings("repo_config_doc", m),
         )
 
- @loader.owner
+    @loader.owner
     async def dlmodcmd(self, message: Message) -> None:
         """Downloads and installs a module from the official module repo"""
         if args := utils.get_args(message):
