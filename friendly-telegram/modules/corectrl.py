@@ -49,9 +49,9 @@ class CoreMod(loader.Module):
         "bad_pack": "<b>✅ Invalid translation pack specified</b>",
         "trnsl_saved": "<b>✅ Translation pack added</b>",
         "packs_cleared": "<b>✅ Translations cleared</b>",
-        "lang_set": "<b>✅ Language changed</b>",
+        "lang_set": "<b>✅  Язык изменен</b>",
         "db_cleared": "<b>✅ Database cleared</b>",
-        "geek": "🥷 <b>Поздравляю! У вас LINUXIL!</b>\n\n<b>🪁 LINUXIL версия: 1.4.0</b>\n☁️ Дата последнего обновления 14.05.22</b>",
+        "geek": "🥷 <b>Поздравляю! У вас LINUXIL!</b>\n\n<b>🍃 LINUXIL версия: 1.5.0</b>\n🔄 Дата последнего обновления 14.05.22</b>",
         "geek_beta": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.2beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
         "geek_alpha": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
     }
@@ -86,28 +86,18 @@ class CoreMod(loader.Module):
         return f"{str(chatid)}.{module}" if module else chatid
 
     async def linuxilcmd(self, message: Message) -> None:
-        """Get GeekTG version"""
-        ver = getattr(main, "__version__", False)
+        """LINUXIL version"""
 
-        branch = os.popen("git rev-parse --abbrev-ref HEAD").read()  # skipcq: BAN-B605, BAN-B607
+        await self.inline.form(
+                    self.strings("geek", message),
+                    reply_markup=[
+                        [{"text": "⚡ LINUXIL", "url": "https://t.me/linuxil1"}],                        
+                        [{"text": "⚡ ME", "url": "tg://user?id={self._me.id}"}],
 
-        if "beta" in branch:
-            await utils.answer(message, self.strings("geek_beta").format(*ver))
-        elif "alpha" in branch:
-            await utils.answer(message, self.strings("geek_alpha").format(*ver))
-        else:
-            await utils.answer(message, self.strings("geek").format(*ver))
-
-    async def blacklistcmd(self, message: Message) -> None:
-        """.blacklist [id]
-        Blacklist the bot from operating somewhere"""
-        chatid = await self.blacklistcommon(message)
-
-        self._db.set(
-            main.__name__,
-            "blacklist_chats",
-            self._db.get(main.__name__, "blacklist_chats", []) + [chatid],
-        )
+                    ],
+                    ttl=10,
+                    message=message,
+                )
 
         await utils.answer(message, self.strings("blacklisted", message).format(chatid))
 
