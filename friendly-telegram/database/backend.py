@@ -38,7 +38,7 @@ class CloudBackend:
 
     async def _find_data_channel(self):
         async for dialog in self._client.iter_dialogs(None, ignore_migrated=True):
-            if dialog.name == f"friendly-{self._me.user_id}-data" and dialog.is_channel:
+            if dialog.name == f"linuxil-{self._me.user_id}-data" and dialog.is_channel:
                 members = await self._client.get_participants(dialog, limit=2)
                 if len(members) != 1:
                     continue
@@ -53,8 +53,8 @@ class CloudBackend:
             return (
                 await self._client(
                     CreateChannelRequest(
-                        f"friendly-{self._me.user_id}-data",
-                        "// Don't touch",
+                        f"linuxil-{self._me.user_id}-data",
+                        "// Не трогай",
                         megagroup=True,
                     )
                 )
@@ -80,8 +80,8 @@ class CloudBackend:
             return (
                 await self._client(
                     CreateChannelRequest(
-                        f"friendly-{self._me.user_id}-assets",
-                        "// Don't touch",
+                        f"linuxil-{self._me.user_id}-assets",
+                        "// Не трогай",
                         megagroup=True,
                     )
                 )
