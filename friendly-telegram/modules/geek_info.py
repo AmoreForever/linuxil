@@ -95,7 +95,7 @@ class GeekInfoMod(loader.Module):
 <b>🧱 Сборка: </b><a href="https://github.com/AmoreForever/linux/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 
-<b>💻 Платформа: {platform}</b>
+💻 Платформа:<b> {platform}</b>
 """,
                         "HTML",
                         disable_web_page_preview=True,
