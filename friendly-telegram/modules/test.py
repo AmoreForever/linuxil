@@ -30,18 +30,17 @@ class TestMod(loader.Module):
     """Perform operations based on userbot self-testing"""
 
     strings = {
-        "name": "Tester",
-        "set_loglevel": "🚫 <b>Please specify verbosity as an integer or string</b>",
-        "no_logs": "ℹ️ <b>You don't have any logs at verbosity {}.</b>",
+        "name": "LINUXILtester",
+        "set_loglevel": "🚫 <b>Укажите детализацию в виде целого числа или строки. </b>",
+        "no_logs": "ℹ️ <b>У вас нет логов  {}.</b>",
         "logs_filename": "linuxil-logs.txt",
         "logs_caption": "🗞 LINUXIL logs with verbosity {}",
         "suspend_invalid_time": "🚫 <b>Invalid time to suspend</b>",
         "suspended": "🥶 <b>Bot suspended for</b> <code>{}</code> <b>seconds</b>",
-        "results_ping": "🍃 <b>Пинг:</b> <code>{}</code> <b>ms</b>",
+        "results_ping": "⚡ <b>Пинг:</b> <code>{}</code> <b>ms</b>",
         "confidential": "⚠️ <b>Log level </b><code>{}</code><b> may reveal your confidential info, be careful</b>",
         "confidential_text": "⚠️ <b>Log level </b><code>{0}</code><b> may reveal your confidential info, be careful</b>\n<b>Type </b><code>.logs {0} force_insecure</code><b> to ignore this warning</b>",
-        "choose_loglevel": "💁‍♂️ <b>Choose log level</b>",
-        "fakeping": "⚡ <b>Пинг: 777.777ms
+        "choose_loglevel": "💁‍♂️ <b>Выберите уровень логов</b>",
     }
 
     @staticmethod
@@ -85,19 +84,19 @@ class TestMod(loader.Module):
                     reply_markup=[
                         [
                             {
-                                "text": "🚨 Critical",
+                                "text": "🚨 Критический ",
                                 "callback": self.logscmd,
                                 "args": (False, 50),
                             },
                             {
-                                "text": "🚫 Error",
+                                "text": "🚫 Ошибки",
                                 "callback": self.logscmd,
                                 "args": (False, 40),
                             },
                         ],
                         [
                             {
-                                "text": "⚠️ Warning",
+                                "text": "⚠️ Предупреждение ",
                                 "callback": self.logscmd,
                                 "args": (False, 30),
                             },
@@ -109,17 +108,17 @@ class TestMod(loader.Module):
                         ],
                         [
                             {
-                                "text": "🧑‍💻 Debug",
+                                "text": "🔆 Отложенные",
                                 "callback": self.logscmd,
                                 "args": (False, 10),
                             },
                             {
-                                "text": "👁 All",
+                                "text": "📂 Все",
                                 "callback": self.logscmd,
                                 "args": (False, 0),
                             },
                         ],
-                        [{"text": "🚫 Cancel", "callback": self.cancel}],
+                        [{"text": "🚫 Отмена", "callback": self.cancel}],
                     ],
                     message=message,
                 )
@@ -229,16 +228,3 @@ class TestMod(loader.Module):
 
     async def client_ready(self, client, db) -> None:
         self._client = client
-
-    async def fpingcmd(self, message: Message) -> None:
-        """Fake ping"""
-
-        await self.inline.form(
-                    self.strings("fakeping", message),
-                    reply_markup=[
-                        [{"text": "⚡ LINUXIL", "url": "https://t.me/linuxilchat"}],                        
-
-                    ],
-                    ttl=10,
-                    message=message,
-                )
