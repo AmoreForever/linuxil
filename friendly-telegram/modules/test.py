@@ -41,6 +41,7 @@ class TestMod(loader.Module):
         "confidential": "⚠️ <b>Log level </b><code>{}</code><b> may reveal your confidential info, be careful</b>",
         "confidential_text": "⚠️ <b>Log level </b><code>{0}</code><b> may reveal your confidential info, be careful</b>\n<b>Type </b><code>.logs {0} force_insecure</code><b> to ignore this warning</b>",
         "choose_loglevel": "💁‍♂️ <b>Choose log level</b>",
+        "fakeping": "⚡ <b>Пинг: 777.777ms
     }
 
     @staticmethod
@@ -215,7 +216,6 @@ class TestMod(loader.Module):
 
     async def pingcmd(self, message: Message) -> None:
         """Test your userbot ping"""
-        await self.inline.form(
         start = time.perf_counter_ns()
         message = await utils.answer(message, "<code>Ping checking...</code>")
         end = time.perf_counter_ns()
@@ -229,4 +229,16 @@ class TestMod(loader.Module):
 
     async def client_ready(self, client, db) -> None:
         self._client = client
-        )
+
+    async def fpingcmd(self, message: Message) -> None:
+        """Fake ping"""
+
+        await self.inline.form(
+                    self.strings("fakeping", message),
+                    reply_markup=[
+                        [{"text": "⚡ LINUXIL", "url": "https://t.me/linuxilchat"}],                        
+
+                    ],
+                    ttl=10,
+                    message=message,
+                )
