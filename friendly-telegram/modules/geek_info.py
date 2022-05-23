@@ -91,12 +91,12 @@ class GeekInfoMod(loader.Module):
                         f"""
 <b>☁️ LINUXIL Userbot</b>
 <b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
-<b>🛡 Актуальная версия: 1.1.4</b>
-<b>🥶 Не актуальная версия: </b><i>{".".join(list(map(str, list(main.__version__))))}</i>
+<b>🛡 Актуальная версия: 1.1.5</b>
+<b>🥶 Официальная версия: <b>{".".join(list(map(str, list(main.__version__))))}</b>
 <b>🧱 Сборка: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "Unknown"}</a>
 <b>{upd}</b>
 
-<b>🔰Платформа: {platform}</b>
+<b>💻 Платформа: {platform}</b>
 """,
                         "HTML",
                         disable_web_page_preview=True,
@@ -110,3 +110,16 @@ class GeekInfoMod(loader.Module):
             cache_time=0,
         )
 
+    async def info_inline_handler(self, query: InlineQuery) -> dict:
+        """Send userbot info"""
+
+        return {
+            "title": self.strings("send_info"),
+            "description": self.strings("description"),
+            "message": self._render_info(),
+            "thumb": "https://github.com/hikariatama/Hikka/raw/master/assets/hikka_pfp.png",
+            "reply_markup": {
+                "text": self.config["custom_button"].split("|")[0],
+                "url": self.config["custom_button"].split("|")[1],
+            },
+        }  
