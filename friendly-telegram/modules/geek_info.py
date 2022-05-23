@@ -93,7 +93,7 @@ class GeekInfoMod(loader.Module):
 <b>🤴 Владелец: <a href="tg://user?id={self._me.id}">{get_display_name(self._me)}</a></b>\n
 <b>⚡ Актуальная версия: 1.1.5</b>
 <b>🥶 Официальная версия: <b>{".".join(list(map(str, list(main.__version__))))}</b>
-<b>🧱 Сборка: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "8.161.1"}</a>
+<b>🧱 Сборка: </b><a href="https://github.com/GeekTG/Friendly-Telegram/commit/{ver}">{ver[:8] or "unknown"}</a>
 <b>{upd}</b>
 <b>💻 Платформа: {platform}</b>
 """,
