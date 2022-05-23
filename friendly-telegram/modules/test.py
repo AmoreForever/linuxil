@@ -215,6 +215,7 @@ class TestMod(loader.Module):
 
     async def pingcmd(self, message: Message) -> None:
         """Test your userbot ping"""
+        await self.inline.form(
         start = time.perf_counter_ns()
         message = await utils.answer(message, "<code>Ping checking...</code>")
         end = time.perf_counter_ns()
@@ -228,3 +229,4 @@ class TestMod(loader.Module):
 
     async def client_ready(self, client, db) -> None:
         self._client = client
+        )
