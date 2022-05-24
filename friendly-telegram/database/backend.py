@@ -38,7 +38,7 @@ class CloudBackend:
 
     async def _find_data_channel(self):
         async for dialog in self._client.iter_dialogs(None, ignore_migrated=True):
-            if dialog.name == f"💼 linuxil-{get_display_name(self._me)}-logs" and dialog.is_channel:
+            if dialog.name == f"💼 linuxil-{self._me.user_id}-logs" and dialog.is_channel:
                 members = await self._client.get_participants(dialog, limit=2)
                 if len(members) != 1:
                     continue
@@ -53,7 +53,7 @@ class CloudBackend:
             return (
                 await self._client(
                     CreateChannelRequest(
-                        f"💼linuxil-{get_display_name(self._me)}-logs",
+                        f"💼 linuxil-{self._me.user_id}-logs",
                         "🌌 Logs linuxil userbot, don't touch this group",
                         megagroup=True,
                     )
@@ -80,7 +80,7 @@ class CloudBackend:
             return (
                 await self._client(
                     CreateChannelRequest(
-                        f"💼 linuxil-{get_display_name(self._me)}-assets",
+                        f"💼 linuxil-{self._me.user_id}-assets",
                         "🌌 Assets linuxil bot, don't touch this group",
                         megagroup=True,
                     )
