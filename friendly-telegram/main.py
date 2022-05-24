@@ -481,13 +481,13 @@ def main():  # noqa: C901
         if web:
             if not web.running.is_set():
                 loop.run_until_complete(web.start(arguments.port))
-                print("Web mode ready for configuration")  # noqa: T001
+                print("✳Web mode ready for configuration")  # noqa: T001
                 if not arguments.heroku_web_internal:
                     port = str(web.port)
                     if platform.system() == "Linux" and not os.path.exists(
                         "/etc/os-release"
                     ):
-                        print(f"Please visit http://localhost:{port}")
+                        print(f"Посетите сайт http://localhost:{port}")
                     else:
                         ipaddress = get("https://api.ipify.org").text
                         print(
@@ -599,7 +599,7 @@ def main():  # noqa: C901
 
         app = heroku.publish(clients, key, api_token)
         print(
-            "Installed to heroku successfully! Type .help in Telegram for help."
+            "✅Успешно установлено на Heroku! Введите .help в Telegram, чтобы получить доп. информацию. "
         )  # noqa: T001
         if web:
             web.redirect_url = app.web_url
