@@ -31,10 +31,10 @@ class GeekSettingsMod(loader.Module):
         "disabled": "👀 <b>Watcher {} сейчас <u>disabled</u></b>",
         "enabled": "👀 <b>Watcher {} is now <u>enabled</u></b>",
         "args": "🚫 <b>You need to specify watcher name</b>",
-        "user_nn": "☁️ <b>NoNick для этого пользователя теперь  {}</b>",
-        "no_cmd": "☁️ <b>Укажите команду для включения NoNick для </b>",
-        "cmd_nn": "☁️ <b>NoNick для </b><code>{}</code><b> is now {}</b>",
-        "cmd404": "☁️ <b>Команда не найдена</b>",
+        "user_nn": "🚔 <b>NoNick для этого пользователя теперь  {}</b>",
+        "no_cmd": "🚔 <b>Укажите команду для включения NoNick для </b>",
+        "cmd_nn": "🚔 <b>NoNick для </b><code>{}</code><b> сейчас{}</b>",
+        "cmd404": "🚔 <b>Команда не найдена</b>",
         "inline_settings": "🎛 <b>Здесь вы можете настроить параметры LINUXIL </b>",
         "confirm_update": "🪁 <b>Пожалуйста, подтвердите, что вы хотите обновить. Ваш бот будет перезапущен </b>",
         "confirm_restart": "🔄 <b>Пожалуйста, подтвердите, что хотите перезапустить </b>",
@@ -266,7 +266,7 @@ class GeekSettingsMod(loader.Module):
                 self.strings("confirm_restart"),
                 reply_markup=[
                     [
-                        {"text": "✳ Рестарт", "callback": self.inline__restart},
+                        {"text": "⚡ Рестарт", "callback": self.inline__restart},
                         {"text": "🚫 Отмена", "callback": self.inline__close},
                     ]
                 ],
@@ -347,7 +347,7 @@ class GeekSettingsMod(loader.Module):
                 },
                 {"text": "🪁 Обновление", "callback": self.inline__update, "args": (True,)},
             ],
-            [{"text": "🍥 Закрыть меню", "callback": self.inline__close}],
+            [{"text": "🛑 Закрыть меню", "callback": self.inline__close}],
         ]
 
     @loader.owner
