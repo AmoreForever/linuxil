@@ -51,7 +51,7 @@ class CoreMod(loader.Module):
         "packs_cleared": "<b>✅ Translations cleared</b>",
         "lang_set": "<b>✅  Язык изменен</b>",
         "db_cleared": "<b>✅ Database cleared</b>",
-        "geek": "🦋 <b>Ку! У вас LINUXIL!</b>\n\n<b>🌀 Версия: 1.6.0</b>\n🔄 Дата и время последнего обновления 25.05.22  18:11</b>\n\n⚡ Channel: @linuxil1",
+        "geek": "🦋 <b>Ку! У вас LINUXIL!</b>\n\n<b>🌀 Версия: 1.6.0</b>\n🔄 Дата и время последнего обновления: 25.05.22  18:11</b>\n\n⚡ Channel: @linuxil1",
         "geek_beta": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.2beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
         "geek_alpha": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
     }
@@ -86,17 +86,14 @@ class CoreMod(loader.Module):
         return f"{str(chatid)}.{module}" if module else chatid
 
     async def linuxilcmd(self, message: Message) -> None:
-        """Get GeekTG version"""
-        ver = getattr(main, "__version__", False)
+        """LINUXIL VERSION"""
 
-        branch = os.popen("git rev-parse --abbrev-ref HEAD").read()  # skipcq: BAN-B605, BAN-B607
-
-        if "beta" in branch:
-            await utils.answer(message, self.strings("geek_beta").format(*ver))
-        elif "alpha" in branch:
-            await utils.answer(message, self.strings("geek_alpha").format(*ver))
-        else:
-            await utils.answer(message, self.strings("geek").format(*ver))
+        await self.inline.form(
+                    self.strings("geek", message),
+         
+                    ttl=10,
+                    message=message,                    
+                )
       
     async def unblacklistcmd(self, message: Message) -> None:
         """.unblacklist [id]
