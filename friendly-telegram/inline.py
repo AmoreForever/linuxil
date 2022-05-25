@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 
 photo = io.BytesIO(
     requests.get(
-        "https://github.com/GeekTG/Friendly-Telegram/raw/master/friendly-telegram/bot_avatar.png" # noqa: E501, W505
+        "https://siasky.net/HAAs1jbmwNQVFOEavi1sQ4L2JEJfGkFxELWQgDWXuoAVpw"
     ).content
 )
 photo.name = "avatar.png"
@@ -122,10 +122,7 @@ async def edit(
     inline_message_id: Union[str, None] = None,
     disable_web_page_preview: bool = True,
 ) -> None:
-    """
-    Do not edit or pass `self`, `query`, `form`, `form_uid`
-    params, they are for internal use only
-    """
+    """Do not edit or pass `self`, `query`, `form`, `form_uid` params, they are for internal use only"""
     if reply_markup is None:
         reply_markup = []
 
@@ -191,8 +188,7 @@ async def custom_next_handler(
         new_url = await func()
         if not isinstance(new_url, (str, bool)):
             raise Exception(
-                f"Invalid type returned by `next_handler`."
-                f"Expected `str` or `False`, got `{type(new_url)}`"
+                f"Invalid type returned by `next_handler`. Expected `str` or `False`, got `{type(new_url)}`"
             )
     except Exception:
         logger.exception("Exception while trying to parse new photo")
@@ -206,9 +202,7 @@ async def custom_next_handler(
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton("Next ➡️", callback_data=btn_call_data))
 
-    _caption = (
-        caption if isinstance(caption, str) or not callable(caption) else caption()
-    )
+    _caption = caption if isinstance(caption, str) or not callable(caption) else caption()
 
     try:
         await self.bot.edit_message_media(
@@ -223,10 +217,7 @@ async def custom_next_handler(
 
 
 async def delete(self: Any = None, form: Any = None, form_uid: Any = None) -> bool:
-    """
-    Params `self`, `form`, `form_uid` are
-    for internal use only, do not try to pass them
-    """
+    """Params `self`, `form`, `form_uid` are for internal use only, do not try to pass them"""
     try:
         await self._client.delete_messages(form["chat"], [form["message_id"]])
         del self._forms[form_uid]
@@ -237,10 +228,7 @@ async def delete(self: Any = None, form: Any = None, form_uid: Any = None) -> bo
 
 
 async def unload(self: Any = None, form_uid: Any = None) -> bool:
-    """
-    Params `self`, `form_uid` are
-    for internal use only, do not try to pass them
-    """
+    """Params `self`, `form_uid` are for internal use only, do not try to pass them"""
     try:
         del self._forms[form_uid]
     except Exception:
@@ -293,15 +281,13 @@ class InlineManager:
     def ss(self, user: Union[str, int], state: Union[str, bool]) -> bool:
         if not isinstance(user, (str, int)):
             logger.error(
-                f"Invalid type for `user` in `ss` "
-                f"(expected `str or int` got `{type(user)}`)"
+                f"Invalid type for `user` in `ss` (expected `str or int` got `{type(user)}`)"
             )
             return False
 
         if not isinstance(state, (str, bool)):
             logger.error(
-                f"Invalid type for `state` in `ss` "
-                f"(expected `str or bool` got `{type(state)}`)"
+                f"Invalid type for `state` in `ss` (expected `str or bool` got `{type(state)}`)"
             )
             return False
 
@@ -315,8 +301,7 @@ class InlineManager:
     def gs(self, user: Union[str, int]) -> Union[bool, str]:
         if not isinstance(user, (str, int)):
             logger.error(
-                f"Invalid type for `user` in `gs` "
-                f"(expected `str or int` got `{type(user)}`)"
+                f"Invalid type for `user` in `gs` (expected `str or int` got `{type(user)}`)"
             )
             return False
 
@@ -324,9 +309,7 @@ class InlineManager:
 
     def check_inline_security(self, func, user):
         """Checks if user with id `user` is allowed to run function `func`"""
-        allow = (
-            user in [self._me] + self._client.dispatcher.security._owner
-        )  # skipcq: PYL-W0212
+        allow = user in [self._me] + self._client.dispatcher.security._owner  # skipcq: PYL-W0212
 
         if not hasattr(func, "__doc__") or not func.__doc__ or allow:
             return allow
@@ -386,7 +369,7 @@ class InlineManager:
             await r.delete()
 
             # Set its name to user's name + GeekTG Userbot
-            m = await conv.send_message(f"🤖 GeekTG Userbot of {self._name}")
+            m = await conv.send_message(f"🥷 Linuxil for {self._name}")
             r = await conv.get_response()
 
             await m.delete()
@@ -394,7 +377,7 @@ class InlineManager:
 
             # Generate and set random username for bot
             uid = rand(6)
-            username = f"GeekTG_{uid}_Bot"
+            username = f"linuxil_{uid}_Bot"
 
             m = await conv.send_message(username)
             r = await conv.get_response()
@@ -468,7 +451,7 @@ class InlineManager:
 
             for row in r.reply_markup.rows:
                 for button in row.buttons:
-                    if re.search(r"@geektg_[0-9a-zA-Z]{6}_bot", button.text, re.I):
+                    if re.search(r"@linuxil_[0-9a-zA-Z]{6}_bot", button.text, re.I):
                         m = await conv.send_message(button.text)
                         r = await conv.get_response()
 
@@ -798,25 +781,18 @@ class InlineManager:
 
                     _help += f"🎹 <code>@{self.bot_username} {name}</code> - {doc}\n"
 
-            icmds = len(_help.splitlines()) or "no"
-            itext = (
-                "😔 There is no available inline commands."
-                if not _help
-                else f"<b>ℹ️ Available inline commands:</b>\n\n{_help}"
-            )
-
             await inline_query.answer(
                 [
                     InlineQueryResultArticle(
                         id=rand(20),
                         title="Show available inline commands",
-                        description=f"You have {icmds} available commands",
+                        description=f"You have {len(_help.splitlines())} available command(-s)",
                         input_message_content=InputTextMessageContent(
-                            itext,
+                            f"<b>ℹ️ Available inline commands:</b>\n\n{_help}",
                             "HTML",
                             disable_web_page_preview=True,
                         ),
-                        thumb_url="https://img.icons8.com/fluency/50/000000/info-squared.png",  # skipcq: FLK-E501
+                        thumb_url="https://img.icons8.com/fluency/50/000000/info-squared.png",
                         thumb_width=128,
                         thumb_height=128,
                     )
@@ -970,7 +946,7 @@ class InlineManager:
                         form["force_me"]
                         and query.from_user.id != self._me
                         and query.from_user.id
-                        not in self._client.dispatcher.security._owner  # skipcq: PYL-W0212, FLK-E501
+                        not in self._client.dispatcher.security._owner  # skipcq: PYL-W0212
                         and query.from_user.id not in form["always_allow"]
                     ):
                         await query.answer("You are not allowed to press this button!")
@@ -1010,8 +986,7 @@ class InlineManager:
             if (
                 self._custom_map[query.data]["force_me"]
                 and query.from_user.id != self._me
-                and query.from_user.id
-                not in self._client.dispatcher.security._owner  # skipcq: PYL-W0212
+                and query.from_user.id not in self._client.dispatcher.security._owner  # skipcq: PYL-W0212
                 and query.from_user.id
                 not in self._custom_map[query.data]["always_allow"]
             ):
@@ -1081,28 +1056,21 @@ class InlineManager:
         """Creates inline form with callback
         Args:
                 text
-                        Content of inline form.
-                        HTML markup support
+                        Content of inline form. HTML markup support
                 message
-                        Where to send inline.
-                        Can be either `Message` or `int`
+                        Where to send inline. Can be either `Message` or `int`
                 reply_markup
-                        List of buttons to insert in markup.
-                        List of dicts with keys: text, callback
+                        List of buttons to insert in markup. List of dicts with
+                        keys: text, callback
                 force_me
-                        Either this form buttons must be pressed
-                        only by owner scope or no
+                        Either this form buttons must be pressed only by owner scope or no
                 always_allow
-                        Users, that are allowed to press buttons
-                        in addition to previous rules
+                        Users, that are allowed to press buttons in addition to previous rules
                 ttl
-                        Time, when the form is going to be unloaded.
-                        Unload means, that the form
-                        buttons with inline queries and
-                        callback queries will become unusable, but
-                        buttons with type url will still work as usual.
-                        Pay attention, that ttl can't be bigger, than
-                        default one (1 day) and must be either `int` or `False`
+                        Time, when the form is going to be unloaded. Unload means, that the form
+                        buttons with inline queries and callback queries will become unusable, but
+                        buttons with type url will still work as usual. Pay attention, that ttl can't
+                        be bigger, than default one (1 day) and must be either `int` or `False`
         """
 
         if reply_markup is None:
@@ -1220,29 +1188,20 @@ class InlineManager:
         """
         Processes inline gallery
             caption
-                    Caption for photo,
-                    or callable, returning caption
+                    Caption for photo, or callable, returning caption
             message
-                    Where to send inline.
-                    Can be either `Message` or `int`
+                    Where to send inline. Can be either `Message` or `int`
             next_handler
-                    Callback function, which must
-                    return url for next photo
+                    Callback function, which must return url for next photo
             force_me
-                    Either this form buttons must be
-                    pressed only by owner scope or no
+                    Either this form buttons must be pressed only by owner scope or no
             always_allow
-                    Users, that are allowed to press
-                    buttons in addition to previous rules
+                    Users, that are allowed to press buttons in addition to previous rules
             ttl
-                    Time, when the form is going to be unloaded.
-                    Unload means, that the form
-                    buttons with inline queries and callback queries
-                    will become unusable, but
-                    buttons with type url will still work as usual.
-                    Pay attention, that ttl can't
-                    be bigger, than default one (1 day)
-                    and must be either `int` or `False`
+                    Time, when the form is going to be unloaded. Unload means, that the form
+                    buttons with inline queries and callback queries will become unusable, but
+                    buttons with type url will still work as usual. Pay attention, that ttl can't
+                    be bigger, than default one (1 day) and must be either `int` or `False`
         """
 
         if not isinstance(caption, str) and not callable(caption):
@@ -1279,8 +1238,7 @@ class InlineManager:
             photo_url = await next_handler()
             if not isinstance(photo_url, str):
                 raise Exception(
-                    f"Got invalid result from `next_handler`. "
-                    f"Expected `str`, got `{type(photo_url)}`"
+                    f"Got invalid result from `next_handler`. Expected `str`, got `{type(photo_url)}`"
                 )
         except Exception:
             logger.exception("Error while parsing first photo in gallery")
