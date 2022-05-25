@@ -293,6 +293,7 @@ class CoreMod(loader.Module):
 
         db.set(__name__, "aliases", ret)
 
+
     async def ftgvercmd(self, message: Message) -> None:
         """ALTbotver"""
 
