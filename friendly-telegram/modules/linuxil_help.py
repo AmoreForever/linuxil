@@ -37,13 +37,13 @@ class HelpMod(loader.Module):
     def __init__(self):
         self.config = loader.ModuleConfig(
             "core_emoji",
-            "🌌",
+            "🦋",
             lambda: "Core module bullet",
-            "geek_emoji",
-            "🌠",
+            "linuxil_emoji",
+            "🦋",
             lambda: "Geek-only module bullet",
             "plain_emoji",
-            "🌃",
+            "🦋",
             lambda: "Plain module bullet"
         )
 
@@ -227,7 +227,7 @@ class HelpMod(loader.Module):
             if core:
                 emoji = self.config['core_emoji']
             elif inline:
-                emoji = self.config['geek_emoji']
+                emoji = self.config['linuxil_emoji']
             else:
                 emoji = self.config['plain_emoji']
 
