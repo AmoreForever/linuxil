@@ -30,7 +30,7 @@ class TestMod(loader.Module):
     """Perform operations based on userbot self-testing"""
 
     strings = {
-        "name": "LINUXILtester",
+        "name": "LINUXILTester",
         "set_loglevel": "🚫 <b>Укажите детализацию в виде целого числа или строки. </b>",
         "no_logs": "ℹ️ <b>У вас нет логов  {}.</b>",
         "logs_filename": "💼linuxil-logs💼.txt",
@@ -101,7 +101,7 @@ class TestMod(loader.Module):
                                 "args": (False, 30),
                             },
                             {
-                                "text": "ℹ️ Info",
+                                "text": "ℹ️ Инфо",
                                 "callback": self.logscmd,
                                 "args": (False, 20),
                             },
