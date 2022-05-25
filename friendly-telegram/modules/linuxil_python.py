@@ -35,8 +35,8 @@ class PythonMod(loader.Module):
 
     strings = {
         "name": "Python",
-        "eval": "<b>🎬 Code:</b>\n<code>{}</code>\n<b>🪄 Result:</b>\n<code>{}</code>",
-        "err": "<b>🎬 Code:</b>\n<code>{}</code>\n\n<b>🚫 Error:</b>\n<code>{}</code>",
+        "eval": "<b>🎬 Код:</b>\n<code>{}</code>\n<b>🪄 Результат:</b>\n<code>{}</code>",
+        "err": "<b>🎬 Код:</b>\n<code>{}</code>\n\n<b>🚫 Ошибка:</b>\n<code>{}</code>",
         "db_permission": "⚠️ <b>Do not use </b><code>db.set</code><b>, </b><code>db.get</code><b> and other db operations. You have core modules to control anything you want</b>\n\n<i>Theses commands may <b><u>crash</u></b> your userbot or even make it <b><u>unusable</u></b>! Do it on your own risk</i>\n\n<i>If you issue any errors after allowing this option, <b><u>you will not get any help in support chat</u></b>!</i>"
     }
 
