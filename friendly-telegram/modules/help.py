@@ -32,6 +32,7 @@ class HelpMod(loader.Module):
         "undoc_ihandler": "🤔 Нет документов!!",
         "joined": "😎 <b> Вы успели подписаться на канал!</b>",
         "join": "🥱 <b>LINUXILTG присоединяйтесь в группу!\n\nВсе проблемы обсуждаются на оффициальной группе</b>",
+        "chat": "🚨 <b>If you have any problems with the Linux userbot, please contact the chat </b>",
     }
 
     def __init__(self):
@@ -282,40 +283,15 @@ class HelpMod(loader.Module):
 
         await utils.answer(message, f"{reply}\n{''.join(core_)}{''.join(plain_)}{''.join(inline_)}")
 
-    async def supportcmd(self, message):
-        """yordam soʻrash uchun"""
-        if await self.allmodules.check_security(
-            message, security.OWNER | security.SUDO
-        ):
-            await self._client(JoinChannelRequest("https://t.me/ftgchatuz"))
+    async def supportcmd(self, message: Message) -> None:
+        """Support linuxil"""
 
-            try:
-                await self.inline.form(
-                    self.strings("joined", message),
+        await self.inline.form(
+                    self.strings("chat", message),
                     reply_markup=[
-                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/linuxilchat"}],
-                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/umodules"}]
+                        [{"text": "💻 Support | chat", "url": "https://t.me/linuxilchat"}],                                                
+
                     ],
                     ttl=10,
                     message=message,
-                )
-            except Exception:
-                await utils.answer(message, self.strings("joined", message))
-        else:
-            try:
-                await self.inline.form(
-                    self.strings("join", message),
-                    reply_markup=[
-                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/linuxilchat"}],
-                        [{"text": "🍭 Присоединиться в группу", "url": "https://t.me/ftgchatuz"}]
-                    ],
-                    ttl=10,
-                    message=message,
-                )
-            except Exception:
-                await utils.answer(message, self.strings("join", message))
-
-    async def client_ready(self, client, db) -> None:
-        self._client = client
-        self.is_bot = await client.is_bot()
-        self._db = db
+                )                
