@@ -22,7 +22,7 @@ class BackuperMod(loader.Module):
     """Backup everything and anything"""
 
     strings = {
-        "name": "Backuper",
+        "name": "LINUXILBackuper",
         "backup_caption": "☝️ <b>This is your database backup. Do not give it to anyone, it contains personal info.</b>",
         "reply_to_file": "🚫 <b>Reply to .{} file</b>",
         "db_restored": "🔄 <b>Database updated, restarting...</b>",
