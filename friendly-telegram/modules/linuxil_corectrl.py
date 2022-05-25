@@ -85,6 +85,29 @@ class CoreMod(loader.Module):
         module = self.allmodules.get_classname(module)
         return f"{str(chatid)}.{module}" if module else chatid
 
+    async def linuxilcmd(self, message: Message) -> None:
+        """Get LINUXIL version"""
+        ver = getattr(main, "__version__", False)
+
+        branch = os.popen("git rev-parse --abbrev-ref HEAD").read()  # skipcq: BAN-B605, BAN-B607
+
+        if "beta" in branch:
+            await utils.answer(message, self.strings("geek_beta").format(*ver))
+        elif "alpha" in branch:
+            await utils.answer(message, self.strings("geek_alpha").format(*ver))
+        else:
+            await utils.answer(message, self.strings("geek").format(*ver))
+
+    async def blacklistcmd(self, message: Message) -> None:
+        """.blacklist [id]
+        Blacklist the bot from operating somewhere"""
+        chatid = await self.blacklistcommon(message)
+
+        self._db.set(
+            main.__name__,
+            "blacklist_chats",
+            self._db.get(main.__name__, "blacklist_chats", []) + [chatid],
+        )
 
     async def unblacklistcmd(self, message: Message) -> None:
         """.unblacklist [id]
@@ -292,14 +315,3 @@ class CoreMod(loader.Module):
         }
 
         db.set(__name__, "aliases", ret)
-
-
-    async def ftgvercmd(self, message: Message) -> None:
-        """ALTbotver"""
-
-        await self.inline.form(
-                    self.strings("geek", message),
-         
-                    ttl=10,
-                    message=message,                    
-                )
