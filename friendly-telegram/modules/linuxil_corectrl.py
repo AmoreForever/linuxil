@@ -85,16 +85,7 @@ class CoreMod(loader.Module):
         module = self.allmodules.get_classname(module)
         return f"{str(chatid)}.{module}" if module else chatid
 
-    async def linuxilcmd(self, message: Message) -> None:
-        """LINUXIL VERSION"""
 
-        await self.inline.form(
-                    self.strings("geek", message),
-         
-                    ttl=10,
-                    message=message,                    
-                )
-      
     async def unblacklistcmd(self, message: Message) -> None:
         """.unblacklist [id]
         Unblacklist the bot from operating somewhere"""
@@ -301,3 +292,13 @@ class CoreMod(loader.Module):
         }
 
         db.set(__name__, "aliases", ret)
+
+    async def ftgvercmd(self, message: Message) -> None:
+        """ALTbotver"""
+
+        await self.inline.form(
+                    self.strings("geek", message),
+         
+                    ttl=10,
+                    message=message,                    
+                )
