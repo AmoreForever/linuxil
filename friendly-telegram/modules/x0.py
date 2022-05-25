@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class x0Mod(loader.Module): 
  """LINUXIL uploader server""" 
  strings = { 
-  "name": "InstallerLINUXIL" 
+  "name": "LINUXILx0" 
  } 
  
  async def client_ready(self, client, db): 
