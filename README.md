@@ -1,5 +1,5 @@
 
-<img src="https://x0.at/eNum.jpg" alt="linuxil"> 
+<img src="https://siasky.net/bAD5doTRSW0rUyjLeAisSWwIw35uuYGATcYniDiMMBlDYA" alt="linuxil"> 
 <b>FTG</b> - модифицирован на русский язык<br> 
 <b>FTG</b> - модификация
 
