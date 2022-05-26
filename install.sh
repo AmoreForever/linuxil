@@ -190,9 +190,9 @@ if [ ! x"$SUDO_USER" = x"" ]; then
 fi
 
 # shellcheck disable=SC2086
-${SUDO_CMD}rm -rf UMod
+${SUDO_CMD}rm -rf linuxil
 # shellcheck disable=SC2086
-runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linux|| {
+runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linuxil|| {
 	errorout "Clone failed."
 	exit 3
 }
