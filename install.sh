@@ -1,9 +1,7 @@
-#!/bin/bash
-# mod by umodules in uz language
 
 if [ ! -n "$BASH" ]; then
 	echo "Non-bash shell detected, fixing..."
-	bash -c '. <('"$(command -v curl >/dev/null && echo 'curl -Ls' || echo 'wget -qO-')"' https://github.com/AmoreForever/linux/raw/master/install.sh) '"$*"
+	bash -c '. <('"$(command -v curl >/dev/null && echo 'curl -Ls' || echo 'wget -qO-')"' https://github.com/AmoreForever/linuxil/raw/master/install.sh) '"$*"
 	exit $?
 fi
 
@@ -50,7 +48,7 @@ banner() {
 	clear
 	clear
 	printf "\n\e[1;35;47m                  \e[0m"
-printf "\n\e[1;35;47m LINUXIL BOT  \e[0m"
+printf "\n\e[1;35;47m LINUXIL BOT\e[0m"
 printf "\n\e[1;35;47m LINUXIL BOT\e[0m"
 printf "\n\e[1;35;47m                  \e[0m"
 printf "\n\n\e[3;34;40m LINUXIL - Юзербот нового поколения \e[0m\n\n"
@@ -91,8 +89,8 @@ if [ ! x"" = x"$DYNO" ] && ! command -v python >/dev/null; then
 	export PATH="/app/.heroku/python/bin:$PATH" # Prefer the bootstrapped python, incl. pip, over the system one.
 fi
 
-if [ -d "linux/friendly-telegram" ]; then
-	cd linux || {
+if [ -d "linuxil/friendly-telegram" ]; then
+	cd linuxil || {
 		endspin "Error: Install git package and re-run installer"
 		exit 6
 	}
@@ -198,7 +196,7 @@ runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linux|| {
 	errorout "Clone failed."
 	exit 3
 }
-cd linux || {
+cd linuxil || {
 	endspin "Error: Install git package and re-run installer"
 	exit 7
 }
