@@ -282,19 +282,18 @@ class HelpMod(loader.Module):
 
         await utils.answer(message, f"{reply}\n{''.join(core_)}{''.join(plain_)}{''.join(inline_)}")
 
-    async def yordamcmd(self, message):
-        """yordam soʻrash uchun"""
+    async def supportcmd(self, message):
+        """Joins the support LINUXIL chat"""
         if await self.allmodules.check_security(
             message, security.OWNER | security.SUDO
         ):
-            await self._client(JoinChannelRequest("https://t.me/ftgchatuz"))
+            await self._client(JoinChannelRequest("https://t.me/linuxilchat"))
 
             try:
                 await self.inline.form(
                     self.strings("joined", message),
                     reply_markup=[
-                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/linuxilchat"}],
-                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/umodules"}]
+                        [{"text": "👩‍💼 Chat", "url": "https://t.me/linuxilchat"}]
                     ],
                     ttl=10,
                     message=message,
@@ -306,8 +305,7 @@ class HelpMod(loader.Module):
                 await self.inline.form(
                     self.strings("join", message),
                     reply_markup=[
-                        [{"text": "☁️ Присоединиться в группу", "url": "https://t.me/linuxilchat"}],
-                        [{"text": "🍭 Присоединиться в группу", "url": "https://t.me/ftgchatuz"}]
+                        [{"text": "👩‍💼 Chat", "url": "https://t.me/linuxilchat"}]
                     ],
                     ttl=10,
                     message=message,
