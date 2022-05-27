@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 
 photo = io.BytesIO(
     requests.get(
-        "https://siasky.net/bAD5doTRSW0rUyjLeAisSWwIw35uuYGATcYniDiMMBlDYA" # noqa: E501, W505
+        "https://siasky.net/TACcSRA0oIBbg6MaUwpjmJbpefsxgcMyp7Jy8k4evQNTjw" # noqa: E501, W505
     ).content
 )
 photo.name = "avatar.png"
