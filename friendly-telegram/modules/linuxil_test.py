@@ -37,7 +37,7 @@ class TestMod(loader.Module):
         "logs_caption": "🗂 Логи LINUXIL с подробностями  {}",
         "suspend_invalid_time": "🚫 <b>Неверное время для приостановки</b>",
         "suspended": "🥶 <b>Бот заморожен на </b> <code>{}</code> <b>секунд</b>",
-        "results_ping": "⚡ <b>Пинг:</b> <code>{}</code> <b>ms</b>",
+        "results_ping": "💨 <b>Пинг:</b> <code>{}</code> <b>ms</b>",
         "confidential": "⚠️ <b>Log level </b><code>{}</code><b> may reveal your confidential info, be careful</b>",
         "confidential_text": "⚠️ <b>Log level </b><code>{0}</code><b> may reveal your confidential info, be careful</b>\n<b>Type </b><code>.logs {0} force_insecure</code><b> to ignore this warning</b>",
         "choose_loglevel": "💁‍♂️ <b>Выберите уровень логов</b>",
