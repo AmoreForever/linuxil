@@ -51,7 +51,7 @@ class CoreMod(loader.Module):
         "packs_cleared": "<b>✅ Translations cleared</b>",
         "lang_set": "<b>✅  Язык изменен</b>",
         "db_cleared": "<b>✅ Database cleared</b>",
-        "geek": "🦋 <b>Ку! У вас LINUXIL!</b>\n\n<b>🌀 Версия: 1.7.0</b>\n🔄 Дата и время последнего обновления: 26.05.22  17:05</b>\n\n⚡ Channel: @linuxil1",
+        "geek": "🦋 <b>Ку! У вас LINUXIL!</b>\n\n<b>🌀 Версия: 1.8.0</b>\n🔄 Дата и время последнего обновления: 27.05.22  19:11</b>\n\n⚡ Channel: @linuxil1",
         "geek_beta": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: 1.1.2beta</b>\n<b>Branch: beta</b>\n\n<i>🔮 You're using the unstable branch (<b>beta</b>). You receive fresh but untested updates. Report any bugs to @chat_ftg or @hikari_chat</i>",
         "geek_alpha": "🕶 <b>Congrats! You are LINUXIL!</b>\n\n<b>LINUXIL версия: {}.{}.{}alpha</b>\n<b>Branch: alpha</b>\n\n<i>🔮 You're using <b><u>very</u></b> unstable branch (<b>alpha</b>). You receive fresh but untested updates. You <b><u>can't ask for help, only report bugs</u></b></i>",
         "changes": "🪄 <b> Changes after the update</b>\n\n📼 <b> New help menu</b>\n👾 <b> Add x0 uploader</b>\n💼 <b> AdminTool translated into Russian </b>" ,
