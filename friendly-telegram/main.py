@@ -14,7 +14,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#    Modded by GeekTG Team
+#    Modded by LINUXIL Team
 
 import argparse
 import asyncio
@@ -52,7 +52,7 @@ from .database import backend, frontend
 from .dispatcher import CommandDispatcher
 from .translations.core import Translator
 
-__version__ = (1, 1, 5)
+__version__ = (2, 1, 8)
 try:
     from .web import core
 except ImportError:
@@ -401,7 +401,7 @@ def main():  # noqa: C901
                 if platform.system() == "Linux" and not os.path.exists(
                     "/etc/os-release"
                 ):
-                    print(f"Please visit http://localhost:{port}")
+                    print(f"🌐 Please visit http://localhost:{port}")
                 else:
                     ipaddress = get("https://api.ipify.org").text
                     print(
@@ -481,13 +481,13 @@ def main():  # noqa: C901
         if web:
             if not web.running.is_set():
                 loop.run_until_complete(web.start(arguments.port))
-                print("✳Web mode ready for configuration")  # noqa: T001
+                print("✳ Web mode ready for configuration")  # noqa: T001
                 if not arguments.heroku_web_internal:
                     port = str(web.port)
                     if platform.system() == "Linux" and not os.path.exists(
                         "/etc/os-release"
                     ):
-                        print(f"Посетите сайт http://localhost:{port}")
+                        print(f"🌐 Посетите сайт http://localhost:{port}")
                     else:
                         ipaddress = get("https://api.ipify.org").text
                         print(
@@ -599,7 +599,7 @@ def main():  # noqa: C901
 
         app = heroku.publish(clients, key, api_token)
         print(
-            "✅Успешно установлено на Heroku! Введите .help в Telegram, чтобы получить доп. информацию. "
+            "✅ Успешно установлено на Heroku! Введите .help в Telegram, чтобы получить дополнительную информацию. "
         )  # noqa: T001
         if web:
             web.redirect_url = app.web_url
@@ -752,14 +752,10 @@ async def amain(first, client, allclients, web, arguments):
             _platform = r"Termux" if termux else (r"Heroku" if is_heroku else "VDS")
 
             logo1 = f"""
-                                      )
-                   (               ( /(
-                   ) )   (   (    )())
-                  (()/(   )  ) |((_)
-                   /((_)_((_)((_)|_((_)
-                  (_)/ __| __| __| |/ /
-                    | (_ | _|| _|  ' <
-                      ___|___|___|_|_\\
+
+
+              █░░ █ █▄░█ █░█ ▀▄▀ █ █░░
+              █▄▄ █ █░▀█ █▄█ █░█ █ █▄▄
 
                      • Build: {build[:7]}
                      • Version: {'.'.join(list(map(str, list(__version__))))}
