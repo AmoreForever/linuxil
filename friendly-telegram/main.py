@@ -395,7 +395,7 @@ def main():  # noqa: C901
             return
         if web:
             loop.run_until_complete(web.start(arguments.port))
-            print("Web mode ready for configuration")  # noqa: T001
+            print("✅ Web mode ready for configuration")  # noqa: T001
             if not arguments.heroku_web_internal:
                 port = str(web.port)
                 if platform.system() == "Linux" and not os.path.exists(
