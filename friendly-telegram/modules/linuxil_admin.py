@@ -64,7 +64,7 @@ def register(cb):
 
 class AdminToolsMod(loader.Module):
     """Администрирование чата"""
-    strings = {'name': 'LINUXILadmintools',
+    strings = {'name': 'linuxil_admin',
                'no_reply': '<b>Нет реплая на картинку/стикер.</b>',
                'not_pic': '<b>Это не картинка/стикер</b>',
                'wait': '<b>Минуточку...</b>',
