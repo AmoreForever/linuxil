@@ -24,7 +24,7 @@ class GeekSettingsMod(loader.Module):
     """Advanced settings for GeekTG"""
 
     strings = {
-        "name": "LINUXILSettings",
+        "name": "linuxil_settings",
         "watchers": "👀 <b>Watchers:</b>\n\n<b>{}</b>",
         "mod404": "🚫 <b>Watcher {} не найден</b>",
         "already_disabled": "👀 <b>Watcher {} уже отключен </b>",
@@ -37,7 +37,7 @@ class GeekSettingsMod(loader.Module):
         "cmd404": "🚔 <b>Команда не найдена</b>",
         "inline_settings": "🎛 <b>Здесь вы можете настроить параметры LINUXIL </b>",
         "confirm_update": "🪁 <b>Пожалуйста, подтвердите, что вы хотите обновить. Ваш бот будет перезапущен </b>",
-        "confirm_restart": "🔄 <b>Пожалуйста, подтвердите, что хотите перезапустить </b>",
+        "confirm_restart": "🪁 <b>Пожалуйста, подтвердите, что хотите перезапустить </b>",
     }
 
     def get_watchers(self) -> tuple:
