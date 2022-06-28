@@ -30,14 +30,14 @@ class TestMod(loader.Module):
     """Perform operations based on userbot self-testing"""
 
     strings = {
-        "name": "LINUXILTester",
+        "name": "linuxil_test",
         "set_loglevel": "🚫 <b>Укажите детализацию в виде целого числа или строки. </b>",
         "no_logs": "ℹ️ <b>У вас нет логов  {}.</b>",
         "logs_filename": "💼linuxil-logs💼.txt",
         "logs_caption": "🗂 Логи LINUXIL с подробностями  {}",
         "suspend_invalid_time": "🚫 <b>Неверное время для приостановки</b>",
         "suspended": "🥶 <b>Бот заморожен на </b> <code>{}</code> <b>секунд</b>",
-        "results_ping": "💨 <b>Пинг:</b> <code>{}</code> <b>ms</b>",
+        "results_ping": "▫️ <b>Пинг:</b> <code>{}</code> <b>ms</b>",
         "confidential": "⚠️ <b>Log level </b><code>{}</code><b> may reveal your confidential info, be careful</b>",
         "confidential_text": "⚠️ <b>Log level </b><code>{0}</code><b> may reveal your confidential info, be careful</b>\n<b>Type </b><code>.logs {0} force_insecure</code><b> to ignore this warning</b>",
         "choose_loglevel": "💁‍♂️ <b>Выберите уровень логов</b>",
