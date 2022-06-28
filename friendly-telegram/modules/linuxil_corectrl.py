@@ -29,7 +29,7 @@ class CoreMod(loader.Module):
     """Control core userbot settings"""
 
     strings = {
-        "name": "Settings",
+        "name": "linuxil_settings",
         "too_many_args": "🚫 <b>Too many args</b>",
         "blacklisted": "✅ <b>Chat {} blacklisted from userbot</b>",
         "unblacklisted": "✅ <b>Chat {} unblacklisted from userbot</b>",
