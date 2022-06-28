@@ -22,13 +22,13 @@ class UpdaterMod(loader.Module):
     """Updates itself"""
 
     strings = {
-        "name": "Updater",
+        "name": "linuxil_updater",
         "source": "ℹ️ <b>Read the source code from</b> <a href='{}'>here</a>",
-        "restarting_caption": "⚡ <b>Перезагрузка...</b>",
-        "downloading": "🚨 <b>Обновление...</b>",
-        "downloaded": "☑ <b>Успешно обновлено.\n Пожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
-        "already_updated": "✅ <b>Уже оьновлен!</b>",
-        "installing": "🔁 <b>Installing updates...</b>",
+        "restarting_caption": "▫️ <b>Перезагрузка...</b>",
+        "downloading": "▪️ <b>Обновление...</b>",
+        "downloaded": "▫️ <b>Успешно обновлено.\n▫️ Пожалуйста введите \n<code>.restart</code> <b>что бы применить обновление.</b>",
+        "already_updated": "✅ <b>Уже обновлен!</b>",
+        "installing": "🔁 <b>Установка обновлений...</b>",
         "success": "🪄 <b>Успешно перезагрузился!</b>",
         "heroku_warning": "⚠️ <b>Heroku API key has not been set. </b>Update was successful but updates will reset every time the bot restarts.",
         "origin_cfg_doc": "Git origin URL, for where to update from",
