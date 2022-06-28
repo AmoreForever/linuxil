@@ -123,9 +123,9 @@ class LoaderMod(loader.Module):
     """Loads modules"""
 
     strings = {
-        "name": "Загрузчик",
+        "name": "linuxil_loader",
         "repo_config_doc": "Fully qualified URL to a module repo",
-        "avail_header": "<b>🌐 Linuxil modules from repo</b>",
+        "avail_header": "<b>🌐 Official modules from repo</b>",
         "select_preset": "<b>⚠️ Please select a preset</b>",
         "no_preset": "<b>🚫 Preset not found</b>",
         "preset_loaded": "<b>✅ Preset loaded</b>",
@@ -134,7 +134,7 @@ class LoaderMod(loader.Module):
         "provide_module": "<b>⚠️ Provide a module to load</b>",
         "bad_unicode": "<b>🚫 Недопустимое форматирование Unicode в модуле</b>",
         "load_failed": "<b>🚫 Загрузка неудалась. Чекни логи и детали</b>",
-        "loaded": "<b>⚡ Модуль </b><code>{}</code>{}<b> загружен.</b>{}",
+        "loaded": "<b>▫️ Модуль </b><code>{}</code>{}<b> загружен.</b>{}",
         "no_class": "<b>What class needs to be unloaded?</b>",
         "unloaded": "<b>🌪 Модуль выгружен.</b>",
         "not_unloaded": "<b>🚫 Модуль не выгружен.</b>",
@@ -157,7 +157,7 @@ class LoaderMod(loader.Module):
         "repo_not_loaded": "<b>🚫 Репо не загружен</b>",
         "repo_unloaded": "<b>🔄 Repository unloaded, but restart is required to unload repository modules</b>",
         "repo_not_unloaded": "<b>🚫 Repository not unloaded</b>",
-        "single_cmd": "\n📍 <code>{}{}</code> 👉🏻 ",
+        "single_cmd": "\n▪️ <code>{}{}</code> ",
         "undoc_cmd": "👁‍🗨 No docs",
         "ihandler": "\n🎹 <i>Inline</i>: <code>{}</code> 👉🏻 ",
         "undoc_ihandler": "👁‍🗨 No docs",
@@ -450,7 +450,7 @@ class LoaderMod(loader.Module):
 
             if instance.__doc__:
                 modhelp += (
-                    f"<i>\nℹ️ {utils.escape_html(inspect.getdoc(instance))}</i>\n"
+                    f"<i>\n▫️ {utils.escape_html(inspect.getdoc(instance))}</i>\n"
                 )
 
             if re.search(r"# ?scope: ?disable_onload_docs", doc):
