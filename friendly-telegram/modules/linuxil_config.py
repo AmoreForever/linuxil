@@ -1,5 +1,5 @@
-#▄▀█ █▀▄▀█ █▀█ █▀█ █▀▀
-#█▀█ █░▀░█ █▄█ █▀▄ ██▄
+#     ▄▀█ █▀▄▀█ █▀█ █▀█ █▀▀
+#     █▀█ █░▀░█ █▄█ █▀▄ ██▄
 #          
 #             © Copyright 2022
 #
@@ -37,7 +37,7 @@ class GeekConfigMod(loader.Module):
     """Interactive configurator for GeekTG"""
 
     strings = {
-        "name": "LINUXILConfig",
+        "name": "linuxil_config",
         "configure": "⚙ <b>Здесь вы можете настроить свои модули' модули</b>",
         "configuring_mod": "⚙ <b>Выберите вариант конфигурации для мода</b> <code>{}</code>",
         "configuring_option": "⚙ <b>Вариант настройки  </b><code>{}</code><b> для мода </b><code>{}</code>\n<i>ℹ️ {}</i>\n\n<b>Default: </b><code>{}</code>\n\n<b>Current: </b><code>{}</code>",
