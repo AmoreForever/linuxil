@@ -1,12 +1,13 @@
-"""
-    █ █ ▀ █▄▀ ▄▀█ █▀█ ▀    ▄▀█ ▀█▀ ▄▀█ █▀▄▀█ ▄▀█
-    █▀█ █ █ █ █▀█ █▀▄ █ ▄  █▀█  █  █▀█ █ ▀ █ █▀█
-
-    Copyright 2022 t.me/hikariatama
-    Licensed under the GNU GPLv3
-"""
-
-# meta pic: https://img.icons8.com/fluency/48/000000/sync-settings.png
+#▄▀█ █▀▄▀█ █▀█ █▀█ █▀▀
+#█▀█ █░▀░█ █▄█ █▀▄ ██▄
+#          
+#             © Copyright 2022
+#
+#          https://t.me/the_farkhodov 
+#
+# 🔒 Licensed under the GNU GPLv3
+# 🌐 https://www.gnu.org/licenses/agpl-3.0.html
+#meta developer: @the_farkhodov
 
 from .. import loader, utils
 import asyncio
@@ -22,7 +23,7 @@ class BackuperMod(loader.Module):
     """Backup everything and anything"""
 
     strings = {
-        "name": "LINUXILBackuper",
+        "name": "linuxil_backup",
         "backup_caption": "☝️ <b>This is your database backup. Do not give it to anyone, it contains personal info.</b>",
         "reply_to_file": "🚫 <b>Reply to .{} file</b>",
         "db_restored": "🔄 <b>Database updated, restarting...</b>",
