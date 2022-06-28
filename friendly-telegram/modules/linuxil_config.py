@@ -1,15 +1,13 @@
-"""
-    █ █ ▀ █▄▀ ▄▀█ █▀█ ▀    ▄▀█ ▀█▀ ▄▀█ █▀▄▀█ ▄▀█
-    █▀█ █ █ █ █▀█ █▀▄ █ ▄  █▀█  █  █▀█ █ ▀ █ █▀█
-
-    Copyright 2022 t.me/hikariatama
-    Licensed under the GNU GPLv3
-"""
-
-# <3 title: GeekConfig [geek]
-# <3 pic: https://img.icons8.com/external-filled-outline-wichaiwi/64/000000/external-multitasking-generation-z-filled-outline-wichaiwi.png
-# <3 desc: Interactive configurator for GeekTG
-
+#▄▀█ █▀▄▀█ █▀█ █▀█ █▀▀
+#█▀█ █░▀░█ █▄█ █▀▄ ██▄
+#          
+#             © Copyright 2022
+#
+#          https://t.me/the_farkhodov 
+#
+# 🔒 Licensed under the GNU GPLv3
+# 🌐 https://www.gnu.org/licenses/agpl-3.0.html
+# meta developer: @the_farkhodov
 # scope: inline_content
 
 from .. import loader, utils
@@ -97,11 +95,11 @@ class GeekConfigMod(loader.Module):
             reply_markup=[
                 [
                     {
-                        "text": "👈 Назад",
+                        "text": "▫️ Назад",
                         "callback": self.inline__configure,
                         "args": (mod,),
                     },
-                    {"text": "⛔ Закрыть", "callback": self.inline__close},
+                    {"text": "▪️ Закрыть", "callback": self.inline__close},
                 ]
             ],
             inline_message_id=inline_message_id,
@@ -131,11 +129,11 @@ class GeekConfigMod(loader.Module):
                         ],
                         [
                             {
-                                "text": "👈 Назад",
+                                "text": "▫️ Назад",
                                 "callback": self.inline__configure,
                                 "args": (mod,),
                             },
-                            {"text": "⛔ Закрыть", "callback": self.inline__close},
+                            {"text": "▪️ Закрыть", "callback": self.inline__close},
                         ],
                     ],
                 )
@@ -158,8 +156,8 @@ class GeekConfigMod(loader.Module):
             reply_markup=list(chunks(btns, 2))
             + [
                 [
-                    {"text": "👈 Назад", "callback": self.inline__global_config},
-                    {"text": "⛔ Закрыть", "callback": self.inline__close},
+                    {"text": "▫️ Назад", "callback": self.inline__global_config},
+                    {"text": "▪️ Закрыть", "callback": self.inline__close},
                 ]
             ],
         )
@@ -180,7 +178,7 @@ class GeekConfigMod(loader.Module):
             ]
             kb += [row]
 
-        kb += [[{"text": "⛔ Закрыть", "callback": self.inline__close}]]
+        kb += [[{"text": "▪️ Закрыть", "callback": self.inline__close}]]
 
         if isinstance(call, Message):
             await self.inline.form(
