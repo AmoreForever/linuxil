@@ -1,9 +1,36 @@
 {
-	"name": "Friendly Telegram",
-	"description": "An awesome Telegram userbot that's super easy to install and use - just click the deploy button below",
-	"logo": "https://friendly-telegram.gitlab.io/favicon.ico",
-	"keywords": [
-		"telegram",
-		"userbot"
-	]
+    "name": "Nino",
+    "description": "The fastest and safest user bot ",
+    "logo": "https://github.com/NinoZOOM/assets/raw/main/Nino.png",
+    "keywords": [
+        "telegram",
+        "userbot"
+    ],
+    "env": {
+        "heroku_api_token": {
+            "description": "Heroku API Token. You can get one at https://dashboard.heroku.com/account"
+        }
+    },
+    "addons": [
+        {
+            "plan": "heroku-postgresql"
+        }
+    ],
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-python"
+        },
+        {
+            "url": "https://github.com/hikariatama/heroku-buildpack"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+        },
+        {
+            "url": "https://github.com/jontewks/puppeteer-heroku-buildpack"
+        },
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-apt"
+        }
+    ]
 }
