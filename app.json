@@ -1,11 +1,13 @@
 {
     "name": "LINUXIL",
     "description": "Developer-friendly Telegram userbot",
-    "logo": "https://i.imgur.com/oZ2KPqq.jpeg",
     "keywords": [
         "telegram",
         "userbot"
     ],
+    "repository": "https://github.com/AmoreForever/linuxil",
+    "logo": "https://i.imgur.com/oZ2KPqq.jpeg"
+
     "env": {
         "heroku_api_token": {
             "description": "Heroku API Token. You can get one at https://dashboard.heroku.com/account"
