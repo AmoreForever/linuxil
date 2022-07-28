@@ -1,7 +1,8 @@
+#!/bin/bash
 
 if [ ! -n "$BASH" ]; then
 	echo "Non-bash shell detected, fixing..."
-	bash -c '. <('"$(command -v curl >/dev/null && echo 'curl -Ls' || echo 'wget -qO-')"' https://github.com/AmoreForever/linuxil/raw/master/install.sh) '"$*"
+	bash -c '. <('"$(command -v curl >/dev/null && echo 'curl -Ls' || echo 'wget -qO-')"' https://github.com/GeekTG/Friendly-Telegram/raw/master/install.sh) '"$*"
 	exit $?
 fi
 
@@ -47,18 +48,18 @@ errorout() {
 banner() {
 	clear
 	clear
-	printf "\n\e[1;35;47m                         \e[0m"
-printf "\n\e[1;35;47m █░░ █ █▄░█ █░█ ▀▄▀ █ █░░\e[0m"
-printf "\n\e[1;35;47m █▄▄ █ █░▀█ █▄█ █░█ █ █▄▄\e[0m"
-printf "\n\e[1;35;47m                         \e[0m"
-printf "\n\n\e[3;34;40m LINUXIL - Юзербот нового поколения \e[0m\n\n"
+	printf "\n\e[1;35;47m                  \e[0m"
+printf "\n\e[1;35;47m █░░ █ █▄░█ █░█ ▀▄▀ █ █░░  \e[0m"
+printf "\n\e[1;35;47m █▄▄ █ █░▀█ █▄█ █░█ █ █▄▄  \e[0m"
+printf "\n\e[1;35;47m                  \e[0m"
+printf "\n\n\e[3;34;40m Юзербот для удобства всех пользователей телеграм\e[0m\n\n"
 	
 }
 
 ##############################################################################
 
 banner
-printf '%s\n' "- Загрузка займет 5-15 минут"
+printf '%s\n' "- Загрузка займет 5 - 10 минут"
 printf '%s' "- Установка...  "
 
 ##############################################################################
@@ -89,8 +90,8 @@ if [ ! x"" = x"$DYNO" ] && ! command -v python >/dev/null; then
 	export PATH="/app/.heroku/python/bin:$PATH" # Prefer the bootstrapped python, incl. pip, over the system one.
 fi
 
-if [ -d "linuxil/friendly-telegram" ]; then
-	cd linuxil || {
+if [ -d "Linuxil/friendly-telegram" ]; then
+	cd Linuxil || {
 		endspin "Error: Install git package and re-run installer"
 		exit 6
 	}
@@ -190,13 +191,13 @@ if [ ! x"$SUDO_USER" = x"" ]; then
 fi
 
 # shellcheck disable=SC2086
-${SUDO_CMD}rm -rf linuxil
+${SUDO_CMD}rm -rf Linuxil 
 # shellcheck disable=SC2086
-runout ${SUDO_CMD}git clone https://github.com/AmoreForever/linuxil|| {
+runout ${SUDO_CMD}git clone https://github.com/AmoreForever/Linuxil|| {
 	errorout "Clone failed."
 	exit 3
 }
-cd linuxil || {
+cd Linuxil || {
 	endspin "Error: Install git package and re-run installer"
 	exit 7
 }
@@ -207,7 +208,7 @@ runin ${SUDO_CMD}"python$PYVER" -m pip install -r requirements.txt --upgrade --u
 	errorin "Requirements failed!"
 	exit 4
 }
-endspin "- Готово..."
+endspin "- Успешно!"
 rm -f ../ftg-install.log
 touch .setup_complete
 # shellcheck disable=SC2086,SC2015
