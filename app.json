@@ -1,9 +1,41 @@
 {
-  "name": "Friendly Telegram",
-  "description": "An awesome Telegram userbot that's super easy to install and use - just click the deploy button below",
-  "logo": "https://friendly-telegram.gitlab.io/favicon.ico",
-  "keywords": [
-    "telegram",
-    "userbot"
-  ]
+    "name": "LINUXIL",
+    "description": "Developer-friendly Telegram userbot",
+    "logo": "https://i.imgur.com/oZ2KPqq.jpeg",
+    "keywords": [
+        "telegram",
+        "userbot"
+    ],
+    "env": {
+        "heroku_api_token": {
+            "description": "Heroku API Token. You can get one at https://dashboard.heroku.com/account"
+        }
+        "TimeZone": {
+             "description": "Required for Correct Time on autopic/get time. Know your timezone from http://www.timezoneconverter.com/cgi-bin/findzone.tzc",
+             "value": "Asia/Tashkent",
+             "required": false
+         }
+    },
+    "addons": [
+        {
+            "plan": "heroku-postgresql"
+        }
+    ],
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-python"
+        },
+        {
+            "url": "https://github.com/hikariatama/heroku-buildpack"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+        },
+        {
+            "url": "https://github.com/jontewks/puppeteer-heroku-buildpack"
+        },
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-apt"
+        }
+    ]
 }
