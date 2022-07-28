@@ -175,7 +175,7 @@ class LoaderMod(loader.Module):
         super().__init__()
         self.config = loader.ModuleConfig(
             "MODULES_REPO",
-            "https://raw.githubusercontent.com/AmoreForever/FTG-Modules/main/",
+            "https://github.com/hikariatama/ftg/tree/master/",
             lambda m: self.strings("repo_config_doc", m),
         )
 
